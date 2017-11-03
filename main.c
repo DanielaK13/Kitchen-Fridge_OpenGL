@@ -69,23 +69,10 @@ enum boolean {
 };
 typedef enum boolean bool;
 
-bool visual_eixo, visual_espada, visual_picareta;
+bool visual_eixo;
 char transformacao, eixo;
 GLint  objeto;
 GLfloat cab;
-
-GLfloat v[ 8 ][ 3 ] =
-{
-    { -40.0 , -50.0 , 2.0 } ,
-    {  40.0 , -50.0 , 2.0 } ,
-    {  40.0 ,  50.0 , 2.0 } ,
-    { -40.0 ,  50.0 , 2.0 } ,
-    { -40.0 , -50.0 , -2.0 } ,
-    {  40.0 , -50.0 , -2.0 } ,
-    {  40.0 ,  50.0 , -2.0 } ,
-    { -40.0 ,  50.0 , -2.0 }
-
-};
 
 int  LoadBMP(char *filename){
     #define SAIR        {fclose(fp_arquivo); return -1;}
@@ -286,78 +273,78 @@ void Inicializa (void){
     // ativa o cálculo de profundidade z-buffer
     glEnable( GL_DEPTH_TEST );
 
-    //Define_Iluminacao();
+    Define_Iluminacao();
 
-    //Texturizacao();
+    Texturizacao();
 }
 
-void desenhacubo(){
+void desenhacubo(int x, int y, int z){
 
-       glPushMatrix(); // face frontal
-        glColor3ub(255,0,0);
-            glBegin(GL_QUADS);
-                glVertex3fv(v[0]);
-                glVertex3fv(v[1]);
-                glVertex3fv(v[2]);
-                glVertex3fv(v[3]);
-            glEnd();
-        glPopMatrix();
+   glPushMatrix(); // face frontal
+    glColor3ub(255,0,0);
+        glBegin(GL_QUADS);
+            glVertex3d(-x,-y,z);
+            glVertex3d(x,-y,z);
+            glVertex3d(x,y,z);
+            glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
 
-        glPushMatrix(); // face traseira
-        glColor3ub(0,255,255);
-        glTranslated(0,0,-4);
-        glRotated(180,0,1,0);
-            glBegin(GL_QUADS);
-                glVertex3fv(v[4]);
-                glVertex3fv(v[5]);
-                glVertex3fv(v[6]);
-                glVertex3fv(v[7]);
-            glEnd();
-        glPopMatrix();
+    glPushMatrix(); // face traseira
+    glColor3ub(0,255,255);
+    glTranslated(0,0,-4);
+    glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+            glVertex3d(-x,-y,-z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(x,y,-z);
+            glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
 
-        glPushMatrix(); // face direita
-        glColor3ub(255,0,255);
-            glBegin(GL_QUADS);
-                glVertex3fv(v[1]);
-                glVertex3fv(v[5]);
-                glVertex3fv(v[6]);
-                glVertex3fv(v[2]);
-            glEnd();
-        glPopMatrix();
+    glPushMatrix(); // face direita
+    glColor3ub(255,0,255);
+        glBegin(GL_QUADS);
+            glVertex3d(x,-y,z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(x,y,-z);
+            glVertex3d(x,y,z);
+        glEnd();
+    glPopMatrix();
 
-        glPushMatrix(); // face esquerda
-        glColor3ub(255,180,50);
-        glTranslatef(-80,0,0);
-        glRotated(180,0,1,0);
-            glBegin(GL_QUADS);
-                glVertex3fv(v[0]);
-                glVertex3fv(v[4]);
-                glVertex3fv(v[7]);
-                glVertex3fv(v[3]);
-            glEnd();
-        glPopMatrix();
+    glPushMatrix(); // face esquerda
+    glColor3ub(255,180,50);
+    glTranslatef(-80,0,0);
+    glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+            glVertex3d(-x,-y,z);
+            glVertex3d(-x,-y,-z);
+            glVertex3d(-x,y,-z);
+            glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
 
-        glPushMatrix(); // face superior
-        glColor3ub(180,10,255);
-            glBegin(GL_QUADS);
-                glVertex3fv(v[3]);
-                glVertex3fv(v[2]);
-                glVertex3fv(v[6]);
-                glVertex3fv(v[7]);
-            glEnd();
-        glPopMatrix();
+    glPushMatrix(); // face superior
+    glColor3ub(180,10,255);
+        glBegin(GL_QUADS);
+            glVertex3d(-x,y,z);
+            glVertex3d(x,y,z);
+            glVertex3d(x,y,-z);
+            glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
 
-        glPushMatrix(); // face inferior
-        glColor3ub(0,255,0);
-        glTranslatef(0,-100,0);
-        glRotated(180,1,0,0);
-            glBegin(GL_QUADS);
-                glVertex3fv(v[0]);
-                glVertex3fv(v[1]);
-                glVertex3fv(v[5]);
-                glVertex3fv(v[4]);
-            glEnd();
-        glPopMatrix();
+    glPushMatrix(); // face inferior
+    glColor3ub(0,255,0);
+    glTranslatef(0,-100,0);
+    glRotated(180,1,0,0);
+        glBegin(GL_QUADS);
+            glVertex3d(-x,-y,z);
+            glVertex3d(x,-y,z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(-x,-y,-z);
+        glEnd();
+    glPopMatrix();
 }
 
 // Função callback chamada para fazer o desenho
@@ -375,64 +362,53 @@ void Desenha(void){
     GLint raio, segmentos;
     GLfloat ang;
 
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture ( GL_TEXTURE_2D, TEXTURA1 );
     glPushMatrix(); //CENA
         glTranslatef( 0 , 0 , 0 );
         glRotatef( transf[CENA].angx, 1,0,0);
         glRotatef( transf[CENA].angy, 0,1,0);
         glRotatef( transf[CENA].angz, 0,0,1);
 
-        glPushMatrix(); // TRÁS
-            glTranslatef( 0 , 0 , -50 );
-//            glRotatef( transf[GELADEIRA].angx, 1,0,0);
-//            glRotatef( transf[GELADEIRA].angy, 0,1,0);
-//            glRotatef( transf[GELADEIRA].angz, 0,0,1);
-            desenhacubo();
-        glPopMatrix();
-
-        glPushMatrix(); //FRENTE
+        glPushMatrix(); //CUBO FRONTAL
             glTranslatef( 0 , 0 , 50 );
-            glTranslatef(40, 0, .0);
+            glTranslatef(40, 0, 0);
             glRotatef( transf[GELADEIRA].angx, 1,0,0);
             glRotatef( transf[GELADEIRA].angy, 0,1,0);
             glRotatef( transf[GELADEIRA].angz, 0,0,1);
-            glTranslatef(40, 0, .0);
-            //if(transf[GELADEIRA].angy < 0) transf[GELADEIRA].angy = 0;
-            desenhacubo();
+            glTranslatef(40, 0, 0);
+            //if(transf[GELADEIRA].angx < 40) transf[GELADEIRA].angx = 0;
+            desenhacubo(40,50,2);
         glPopMatrix();
 
-        glPushMatrix(); // ESQUERDO
+        glPushMatrix(); //CUBO TRASEIRO
+            glTranslatef( 0 , 0 , -50 );
+            desenhacubo(40,50,2);
+        glPopMatrix();
+
+        glPushMatrix(); //CUBO ESQUERDO
             glTranslatef( -40 , 0 , 0 );
-            //glRotatef( transf[GELADEIRA].angx, 1,0,0);
-            glRotatef( 90, 0, 1, 0);
+            glRotated(90, 0, 1, 0);
+            desenhacubo(50,50,2);
 
-            //glRotatef( transf[GELADEIRA].angz, 0,0,1);
-
-            desenhacubo();
         glPopMatrix();
 
-        glPushMatrix(); // DIREITO
+        glPushMatrix(); //CUBO DIREITO
             glTranslatef( 40 , 0 , 0 );
-            //glRotatef( transf[GELADEIRA].angx, 1,0,0);
             glRotatef( 90, 0, 1, 0);
-            //glRotatef( transf[GELADEIRA].angz, 0,0,1);
-
-            desenhacubo();
+            desenhacubo(50,50,2);
         glPopMatrix();
 
-        glPushMatrix(); // SUPERIOR
+        glPushMatrix(); //CUBO SUPERIOR
             glTranslatef( 0 , 50 , 0 );
-            //glRotatef( transf[GELADEIRA].angx, 1,0,0);
             glRotatef( 90, 1, 0, 0);
-            //glRotatef( transf[GELADEIRA].angz, 0,0,1);
-            desenhacubo();
+            desenhacubo(40,50,2);
         glPopMatrix();
 
-        glPushMatrix(); // INFERIOR
+        glPushMatrix(); //CUBO INFERIOR
             glTranslatef( 0 , -50 , 0 );
-            //glRotatef( transf[GELADEIRA].angx, 1,0,0);
             glRotatef( 90, 1, 0, 0);
-            //glRotatef( transf[GELADEIRA].angz, 0,0,1);
-            desenhacubo();
+            desenhacubo(40,50,2);
         glPopMatrix();
 
 
@@ -742,8 +718,7 @@ int main( int argc , char *argv[] ){
    printf("\nA a => muda o ângulo de abertura da lente");
    printf("\nESC => sai do programa");
    printf("\n\n--------------------------OBJETOS---------------------------");
-   printf("\n0 : CENA");
-   printf("\n1 : PORTA");
+   printf("\n0 : GELADEIRA");
    printf("\n\n--------------------------JANELA----------------------------");
 
    // função simples que inicializa os parãmetros da câmera e da projeção a ser utilizada
