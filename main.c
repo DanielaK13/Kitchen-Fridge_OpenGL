@@ -275,7 +275,7 @@ void Inicializa (void){
 
     Define_Iluminacao();
 
-    Texturizacao();
+    //Texturizacao();
 }
 
 void desenhacubo(int x, int y, int z){
@@ -314,7 +314,7 @@ void desenhacubo(int x, int y, int z){
 
     glPushMatrix(); // face esquerda
     glColor3ub(255,180,50);
-    glTranslatef(-80,0,0);
+    glTranslatef(-80,0,0); // SE AUMENTAR AQUI, AUMENTA TODOS
     glRotated(180,0,1,0);
         glBegin(GL_QUADS);
             glVertex3d(-x,-y,z);
@@ -377,7 +377,6 @@ void Desenha(void){
             glRotatef( transf[GELADEIRA].angy, 0,1,0);
             glRotatef( transf[GELADEIRA].angz, 0,0,1);
             glTranslatef(40, 0, 0);
-            //if(transf[GELADEIRA].angx < 40) transf[GELADEIRA].angx = 0;
             desenhacubo(40,50,2);
         glPopMatrix();
 
@@ -388,6 +387,7 @@ void Desenha(void){
 
         glPushMatrix(); //CUBO ESQUERDO
             glTranslatef( -40 , 0 , 0 );
+
             glRotated(90, 0, 1, 0);
             desenhacubo(50,50,2);
 
@@ -421,6 +421,13 @@ void Desenha(void){
 
     gluDeleteQuadric( quadObj );
  }
+
+
+void maxTrans(){
+    if(transf[GELADEIRA].angx > 0) transf[GELADEIRA].angx = 0;
+    if(transf[GELADEIRA].angy > 0) transf[GELADEIRA].angy = 0;
+    if(transf[GELADEIRA].angz > 0) transf[GELADEIRA].angz = 0;
+}
 
 // Função usada para especificar o volume de visualização
 void EspecificaParametrosVisualizacao( void ){
@@ -502,24 +509,30 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
             case 'R':
                 if ( eixo == 'X'){
                     transf[ objeto ].angx += PASSO;
+                    maxTrans();
                 }
                 else if ( eixo == 'Y'){
                     transf[ objeto ].angy += PASSO;
+                    maxTrans();
                 }
                 else{
                     transf[ objeto ].angz += PASSO;
+                    maxTrans();
                 }
                 break;
 
             case 'T':
                 if ( eixo == 'X'){
                     transf[ objeto ].dx += PASSO;
+                    maxTrans();
                 }
                 else if ( eixo == 'Y'){
                     transf[ objeto ].dy += PASSO;
+                    maxTrans();
                 }
                 else{
                     transf[ objeto ].dz += PASSO;
+                    maxTrans();
                 }
                 break;
 
@@ -530,13 +543,16 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
             case 'R':
                 if ( eixo == 'X'){
                     transf[ objeto ].angx -= PASSO;
+                    maxTrans();
                 }
 
                 else if ( eixo == 'Y'){
                     transf[ objeto ].angy -= PASSO;
+                    maxTrans();
                 }
                 else{
                     transf[ objeto ].angz -= PASSO;
+                    maxTrans();
                 }
 
                 break;
@@ -544,12 +560,15 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
             case 'T':
                 if ( eixo == 'X'){
                     transf[ objeto ].dx -= PASSO;
+                    maxTrans();
                 }
                 else if(eixo=='Y'){
                     transf[ objeto ].dy -= PASSO;
+                    maxTrans();
                 }
                 else{
                     transf[ objeto ].dz -= PASSO;
+                    maxTrans();
                 }
 
                 break;
