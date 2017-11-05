@@ -879,6 +879,7 @@ int main( int argc , char *argv[] ){
    printf("\nESC => sai do programa");
    printf("\n\n--------------------------OBJETOS---------------------------");
    printf("\n0 : GELADEIRA");
+   printf("\n1 : PORTA");
    printf("\n\n--------------------------JANELA----------------------------");
 
    // função simples que inicializa os parãmetros da câmera e da projeção a ser utilizada
