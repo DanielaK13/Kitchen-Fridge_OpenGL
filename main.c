@@ -25,6 +25,7 @@
 
 #define NUM_TEX   1
 #define TEXTURA1  1000
+#define TEXTURA2  1001
 
 
 struct tipo_camera {
@@ -151,6 +152,10 @@ void Texturizacao(){
    glBindTexture ( GL_TEXTURE_2D, texture_id[0] );//armazena na posição 0 do vetor
    LoadBMP ( "textPorta.bmp" ); // lê a textura
 
+   texture_id[ 1 ] = TEXTURA2; // define um numero (identificacao) para a textura
+   glBindTexture ( GL_TEXTURE_2D, texture_id[1] );//armazena na posição 0 do vetor
+   LoadBMP ( "laranja.bmp" ); // lê a textura
+
    glTexGeni( GL_S , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
    glTexGeni( GL_T , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
 }
@@ -185,6 +190,7 @@ void Define_Iluminacao( void ){
 
     // define o brilho do material
     glMateriali ( GL_FRONT , GL_SHININESS , 10 );
+
 
     glEnable(GL_COLOR_MATERIAL);
 }
@@ -378,7 +384,7 @@ void desenhacubo(int x, int y, int z){
     glPopMatrix();
 }
 
-void desenhacubo2(int x, int y, int z){
+void desenhacubo2(int x, int y, int z){ // pés
 
    glPushMatrix(); // face frontal
         //glColor3ub(255,0,0);
@@ -453,6 +459,112 @@ void desenhacubo2(int x, int y, int z){
     glPopMatrix();
 }
 
+void desenhacubo3(int x, int y, int z){ // prateleira
+
+   glPushMatrix(); // face frontal
+        //glColor3ub(255,0,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  1.0 );	// normal da face
+           //glTexCoord2f( 1.0 , 1.0 );
+           glVertex3d(-x,-y,z);
+           //glTexCoord2f( 0.0 , 1.0 );
+           glVertex3d(x,-y,z);
+           //glTexCoord2f( 0.0 , 0.0 );
+           glVertex3d(x,y,z);
+           //glTexCoord2f( 1.0 , 0.0 );
+           glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face traseira
+        glColor3ub(255,255,255);
+        //glColor3ub(0,255,255);
+        glTranslated(0,0,-2);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  -1.0 );
+           //glTexCoord2f(  0.0 , 0.0 );
+           glVertex3d(-x,-y,-z);
+           //glTexCoord2f(  1.0 , 0.0 );
+           glVertex3d(x,-y,-z);
+           //glTexCoord2f(  1.0 , 1.0 );
+           glVertex3d(x,y,-z);
+           //glTexCoord2f(  0.0 , 1.0 );
+           glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face direita
+        //glColor3ub(255,0,255);
+        glColor3ub(255,255,255);
+        glBegin(GL_QUADS);
+        glNormal3f(   1.0 ,   0.0 ,  0.0 );
+           //glTexCoord2f( 1.0 , 1.0 );
+           glVertex3d(x,-y,z);
+           //glTexCoord2f( 0.0 , 1.0 );
+           glVertex3d(x,-y,-z);
+           //glTexCoord2f( 0.0 , 0.0 );
+           glVertex3d(x,y,-z);
+           //glTexCoord2f( 1.0 , 0.0 );
+           glVertex3d(x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face esquerda
+        //glColor3ub(255,180,50);
+        glColor3ub(255,255,255);
+        glTranslatef(-0,0,0);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   -1.0 ,   0.0 ,  0.0 );
+           //glTexCoord2f( 0.0 , 1.0 );
+           glVertex3d(-x,-y,z);
+           //glTexCoord2f( 0.0 , 0.0 );
+           glVertex3d(-x,-y,-z);
+           //glTexCoord2f( 1.0 , 0.0 );
+           glVertex3d(-x,y,-z);
+          // glTexCoord2f( 1.0 , 1.0 );
+           glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face superior
+        //glColor3ub(180,10,255);
+        glColor3ub(255,255,255);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   1.0 ,  0.0 );
+           //glTexCoord2f( 0.0 , 1.0 );
+           glVertex3d(-x,y,z);
+           //glTexCoord2f( 1.0 , 1.0 );
+           glVertex3d(x,y,z);
+           //glTexCoord2f( 1.0 , 0.0 );
+           glVertex3d(x,y,-z);
+           //glTexCoord2f( 0.0 , 0.0 );
+           glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face inferior
+        //glColor3ub(0,255,0);
+        glColor3ub(255,255,255);
+        glTranslatef(0,-0,0);
+        glRotated(180,1,0,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   -1.0 ,  0.0 );
+            //glTexCoord2f( 1.0 , 1.0 );
+            glVertex3d(-x,-y,z);
+            //glTexCoord2f( 0.0 , 1.0 );
+            glVertex3d(x,-y,z);
+            //glTexCoord2f( 0.0 , 0.0 );
+            glVertex3d(x,-y,-z);
+            //glTexCoord2f( 1.0 , 0.0 );
+            glVertex3d(-x,-y,-z);
+        glEnd();
+    glPopMatrix();
+
+
+
+}
 // Função callback chamada para fazer o desenho
 void Desenha(void){
 
@@ -479,12 +591,13 @@ void Desenha(void){
         glBindTexture ( GL_TEXTURE_2D, TEXTURA1 );
 
         glPushMatrix(); //CUBO FRONTAL
-            glTranslatef( 0 , 0 , 50 );
+            glTranslatef(0,0,50);
             glTranslatef(50, 0, 0);
             glRotatef( transf[GELADEIRA].angx, 1,0,0);
             glRotatef( transf[GELADEIRA].angy, 0,1,0);
             glRotatef( transf[GELADEIRA].angz, 0,0,1);
             glTranslatef(50, 0, 0);
+            //glRotatef(180,0,1,0);
             desenhacubo(50,50,2);
         glPopMatrix();
 
@@ -542,14 +655,24 @@ void Desenha(void){
 
         glPushMatrix(); // prateleira
             glRotatef(90,1,0,0);
-            glTranslatef(0,0,-10);
-            desenhacubo(50,50,2);
+            glTranslatef(0,0,-20);
+            desenhacubo3(50,30,1);
         glPopMatrix();
+
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture ( GL_TEXTURE_2D, TEXTURA2 );
+        glPushMatrix(); // laranja
+            glTranslatef(-10,-10,-10);
+            glRotatef(180,1,0,0);
+            glutSolidSphere(10,20,20);
+        glPopMatrix();
+
+        glDisable(GL_TEXTURE_2D);
 
         glPushMatrix(); // prateleira
             glRotatef(90,1,0,0);
-            glTranslatef(0,0,10);
-            desenhacubo(50,50,2);
+            glTranslatef(0,0,20);
+            desenhacubo3(50,30,1);
         glPopMatrix();
 
 
@@ -562,7 +685,6 @@ void Desenha(void){
 
     gluDeleteQuadric( quadObj );
  }
-
 
 void maxTrans(){
     if(transf[GELADEIRA].angx > 0) transf[GELADEIRA].angx = 0;
