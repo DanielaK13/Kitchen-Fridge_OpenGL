@@ -6,7 +6,7 @@
 
             CHRYSTIAN MUNZ,
             DANIELA KUINCHTNER, 152064
-            GABRIEL CONSALTER,
+            GABRIEL CONSALTER, 152071
             CIÊNCIA DA COMPUTAÇÃO - UPF
             PROF. EVANDRO VIAPIANA
 ********************************************************
@@ -19,8 +19,8 @@
 #define PASSO    5
 
 #define NUM_OBJETOS 2
-#define GELADEIRA   1
 #define CENA        0
+#define GELADEIRA   1
 
 
 #define NUM_TEX   1
@@ -46,6 +46,26 @@ struct tipo_luz {
    GLfloat difusa[ 4  ];
    GLfloat especular[ 4 ];
    GLfloat especularidade[ 4 ];
+};
+
+GLfloat qaAmbientLight[] = {0.1,0.1,0.1,1.0};
+GLfloat qaDiffuseLight[] = {1,1,1,1.0};
+GLfloat qaSpecularLight[] = {1.0,1.0,1.0,1.0};
+GLfloat emitLight[] = {0.9,0.9,0.9,0.01};
+GLfloat Noemit[] = {0.0,0.0,0.0,1.0};
+
+GLfloat qaLightPosition[] = {0,-5,0,0};
+GLfloat qaLightDirection[] = {1,1,1,0};
+GLfloat dirVector[] = {0.0,1.0,0.0,0.0};
+
+// Posição de cada luz
+GLfloat posLuz[4] = {
+	{  0,0,0,0 }
+};
+
+// Direção de cada luz
+GLfloat dirLuz[3] = {
+	{ 0,0,-1 }
 };
 
 typedef struct tipo_transformacao_{
@@ -168,22 +188,34 @@ void Define_Iluminacao( void ){
 
     // habilita iluminação
     glEnable( GL_LIGHTING );
+    glEnable ( GL_LIGHT0 );
 
     // Ativa o uso da luz ambiente
-    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
+//    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
+//
+//    // poisção da luz no universo
+//    glLightfv( GL_LIGHT0 , GL_POSITION , luz.posicao );
+//
+//    // configura a luz ambiente
+//    glLightfv( GL_LIGHT0 , GL_AMBIENT  , luz.ambiente  );
+//
+//    // configura a luz difusa
+//    glLightfv( GL_LIGHT0 , GL_DIFFUSE  , luz.difusa );
+//
+//    // configura a luz especular
+//    glLightfv( GL_LIGHT0 , GL_SPECULAR , luz.especular );
 
-    // poisção da luz no universo
-    glLightfv( GL_LIGHT0 , GL_POSITION , luz.posicao );
+      glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight );
 
-    // configura a luz ambiente
-    glLightfv( GL_LIGHT0 , GL_AMBIENT  , luz.ambiente  );
-    // configura a luz difusa
-    glLightfv( GL_LIGHT0 , GL_DIFFUSE  , luz.difusa );
-    // configura a luz especular
-    glLightfv( GL_LIGHT0 , GL_SPECULAR , luz.especular );
+      glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight );
 
-    //habilita a luz 0
-    glEnable ( GL_LIGHT0 );
+      glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition );
+
+      glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight );
+
+      glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
+      glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dirVector);
+      glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 1);
 
     // Define a refletância do material
     glMaterialfv( GL_FRONT , GL_SPECULAR  , luz.especularidade );
@@ -287,23 +319,17 @@ void Inicializa (void){
 void desenhacubo(int x, int y, int z){
 
    glPushMatrix(); // face frontal
-        //glColor3ub(255,0,0);
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   0.0 ,  1.0 );	// normal da face
-           //glTexCoord2f( 1.0 , 1.0 );
            glVertex3d(-x,-y,z);
-           //glTexCoord2f( 0.0 , 1.0 );
            glVertex3d(x,-y,z);
-           //glTexCoord2f( 0.0 , 0.0 );
            glVertex3d(x,y,z);
-           //glTexCoord2f( 1.0 , 0.0 );
            glVertex3d(-x,y,z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face traseira
         glColor3ub(255,255,255);
-        //glColor3ub(0,255,255);
         glTranslated(0,0,-4);
         glRotated(180,0,1,0);
         glBegin(GL_QUADS);
@@ -316,69 +342,49 @@ void desenhacubo(int x, int y, int z){
     glPopMatrix();
 
     glPushMatrix(); // face direita
-        //glColor3ub(255,0,255);
         glColor3ub(255,255,255);
         glBegin(GL_QUADS);
         glNormal3f(   1.0 ,   0.0 ,  0.0 );
-           //glTexCoord2f( 1.0 , 1.0 );
            glVertex3d(x,-y,z);
-           //glTexCoord2f( 0.0 , 1.0 );
            glVertex3d(x,-y,-z);
-           //glTexCoord2f( 0.0 , 0.0 );
            glVertex3d(x,y,-z);
-           //glTexCoord2f( 1.0 , 0.0 );
            glVertex3d(x,y,z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face esquerda
-        //glColor3ub(255,180,50);
         glColor3ub(255,255,255);
         glTranslatef(-100,0,0);
         glRotated(180,0,1,0);
         glBegin(GL_QUADS);
         glNormal3f(   -1.0 ,   0.0 ,  0.0 );
-           //glTexCoord2f( 0.0 , 1.0 );
            glVertex3d(-x,-y,z);
-           //glTexCoord2f( 0.0 , 0.0 );
            glVertex3d(-x,-y,-z);
-           //glTexCoord2f( 1.0 , 0.0 );
            glVertex3d(-x,y,-z);
-          // glTexCoord2f( 1.0 , 1.0 );
            glVertex3d(-x,y,z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face superior
-        //glColor3ub(180,10,255);
         glColor3ub(255,255,255);
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   1.0 ,  0.0 );
-           //glTexCoord2f( 0.0 , 1.0 );
            glVertex3d(-x,y,z);
-           //glTexCoord2f( 1.0 , 1.0 );
            glVertex3d(x,y,z);
-           //glTexCoord2f( 1.0 , 0.0 );
            glVertex3d(x,y,-z);
-           //glTexCoord2f( 0.0 , 0.0 );
            glVertex3d(-x,y,-z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face inferior
-        //glColor3ub(0,255,0);
         glColor3ub(255,255,255);
         glTranslatef(0,-100,0);
         glRotated(180,1,0,0);
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   -1.0 ,  0.0 );
-            //glTexCoord2f( 1.0 , 1.0 );
             glVertex3d(-x,-y,z);
-            //glTexCoord2f( 0.0 , 1.0 );
             glVertex3d(x,-y,z);
-            //glTexCoord2f( 0.0 , 0.0 );
             glVertex3d(x,-y,-z);
-            //glTexCoord2f( 1.0 , 0.0 );
             glVertex3d(-x,-y,-z);
         glEnd();
     glPopMatrix();
@@ -387,7 +393,6 @@ void desenhacubo(int x, int y, int z){
 void desenhacubo2(int x, int y, int z){ // pés
 
    glPushMatrix(); // face frontal
-        //glColor3ub(255,0,0);
         glColor3ub(255,255,255);
         glBegin(GL_QUADS);
             glVertex3d(-x,-y,z);
@@ -398,7 +403,6 @@ void desenhacubo2(int x, int y, int z){ // pés
     glPopMatrix();
 
     glPushMatrix(); // face traseira
-        //glColor3ub(0,255,255);
         glColor3ub(255,255,255);
         glTranslated(0,0,-8);
         glRotated(180,0,1,0);
@@ -411,7 +415,6 @@ void desenhacubo2(int x, int y, int z){ // pés
     glPopMatrix();
 
     glPushMatrix(); // face direita
-        //glColor3ub(255,0,255);
         glColor3ub(255,255,255);
         glBegin(GL_QUADS);
             glVertex3d(x,-y,z);
@@ -422,7 +425,6 @@ void desenhacubo2(int x, int y, int z){ // pés
     glPopMatrix();
 
     glPushMatrix(); // face esquerda
-        //glColor3ub(255,180,50);
         glColor3ub(255,255,255);
         glTranslatef(-12,0,0); // SE AUMENTAR AQUI, AUMENTA TODOS
         glRotated(180,0,1,0);
@@ -435,7 +437,6 @@ void desenhacubo2(int x, int y, int z){ // pés
     glPopMatrix();
 
     glPushMatrix(); // face superior
-        //glColor3ub(180,10,255);
         glColor3ub(255,255,255);
         glBegin(GL_QUADS);
             glVertex3d(-x,y,z);
@@ -446,7 +447,6 @@ void desenhacubo2(int x, int y, int z){ // pés
     glPopMatrix();
 
     glPushMatrix(); // face inferior
-        //glColor3ub(0,255,0);
         glColor3ub(255,255,255);
         glTranslatef(0,-8,0);
         glRotated(180,1,0,0);
@@ -462,102 +462,72 @@ void desenhacubo2(int x, int y, int z){ // pés
 void desenhacubo3(int x, int y, int z){ // prateleira
 
    glPushMatrix(); // face frontal
-        //glColor3ub(255,0,0);
         glBegin(GL_QUADS);
-        glNormal3f(   0.0 ,   0.0 ,  1.0 );	// normal da face
-           //glTexCoord2f( 1.0 , 1.0 );
+        glNormal3f(0.0 , 0.0 ,1.0 );	// normal da face
            glVertex3d(-x,-y,z);
-           //glTexCoord2f( 0.0 , 1.0 );
            glVertex3d(x,-y,z);
-           //glTexCoord2f( 0.0 , 0.0 );
            glVertex3d(x,y,z);
-           //glTexCoord2f( 1.0 , 0.0 );
            glVertex3d(-x,y,z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face traseira
         glColor3ub(255,255,255);
-        //glColor3ub(0,255,255);
         glTranslated(0,0,-2);
         glRotated(180,0,1,0);
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   0.0 ,  -1.0 );
-           //glTexCoord2f(  0.0 , 0.0 );
            glVertex3d(-x,-y,-z);
-           //glTexCoord2f(  1.0 , 0.0 );
            glVertex3d(x,-y,-z);
-           //glTexCoord2f(  1.0 , 1.0 );
            glVertex3d(x,y,-z);
-           //glTexCoord2f(  0.0 , 1.0 );
            glVertex3d(-x,y,-z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face direita
-        //glColor3ub(255,0,255);
         glColor3ub(255,255,255);
         glBegin(GL_QUADS);
         glNormal3f(   1.0 ,   0.0 ,  0.0 );
-           //glTexCoord2f( 1.0 , 1.0 );
            glVertex3d(x,-y,z);
-           //glTexCoord2f( 0.0 , 1.0 );
            glVertex3d(x,-y,-z);
-           //glTexCoord2f( 0.0 , 0.0 );
            glVertex3d(x,y,-z);
-           //glTexCoord2f( 1.0 , 0.0 );
            glVertex3d(x,y,z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face esquerda
-        //glColor3ub(255,180,50);
         glColor3ub(255,255,255);
         glTranslatef(-0,0,0);
         glRotated(180,0,1,0);
         glBegin(GL_QUADS);
         glNormal3f(   -1.0 ,   0.0 ,  0.0 );
-           //glTexCoord2f( 0.0 , 1.0 );
            glVertex3d(-x,-y,z);
-           //glTexCoord2f( 0.0 , 0.0 );
            glVertex3d(-x,-y,-z);
-           //glTexCoord2f( 1.0 , 0.0 );
            glVertex3d(-x,y,-z);
-          // glTexCoord2f( 1.0 , 1.0 );
            glVertex3d(-x,y,z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face superior
-        //glColor3ub(180,10,255);
         glColor3ub(255,255,255);
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   1.0 ,  0.0 );
-           //glTexCoord2f( 0.0 , 1.0 );
            glVertex3d(-x,y,z);
-           //glTexCoord2f( 1.0 , 1.0 );
            glVertex3d(x,y,z);
-           //glTexCoord2f( 1.0 , 0.0 );
            glVertex3d(x,y,-z);
-           //glTexCoord2f( 0.0 , 0.0 );
            glVertex3d(-x,y,-z);
         glEnd();
     glPopMatrix();
 
     glPushMatrix(); // face inferior
-        //glColor3ub(0,255,0);
         glColor3ub(255,255,255);
         glTranslatef(0,-0,0);
         glRotated(180,1,0,0);
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   -1.0 ,  0.0 );
-            //glTexCoord2f( 1.0 , 1.0 );
             glVertex3d(-x,-y,z);
-            //glTexCoord2f( 0.0 , 1.0 );
             glVertex3d(x,-y,z);
-            //glTexCoord2f( 0.0 , 0.0 );
             glVertex3d(x,-y,-z);
-            //glTexCoord2f( 1.0 , 0.0 );
             glVertex3d(-x,-y,-z);
         glEnd();
     glPopMatrix();
@@ -593,11 +563,11 @@ void Desenha(void){
         glPushMatrix(); //CUBO FRONTAL
             glTranslatef(0,0,50);
             glTranslatef(50, 0, 0);
+            glRotatef(180,0,1,0);
             glRotatef( transf[GELADEIRA].angx, 1,0,0);
             glRotatef( transf[GELADEIRA].angy, 0,1,0);
             glRotatef( transf[GELADEIRA].angz, 0,0,1);
             glTranslatef(50, 0, 0);
-            //glRotatef(180,0,1,0);
             desenhacubo(50,50,2);
         glPopMatrix();
 
@@ -687,9 +657,8 @@ void Desenha(void){
  }
 
 void maxTrans(){
-    if(transf[GELADEIRA].angx > 0) transf[GELADEIRA].angx = 0;
-    if(transf[GELADEIRA].angy > 0) transf[GELADEIRA].angy = 0;
-    if(transf[GELADEIRA].angz > 0) transf[GELADEIRA].angz = 0;
+    if(transf[GELADEIRA].angy > 180) transf[GELADEIRA].angy = 180;
+    if(transf[GELADEIRA].angy < 0) transf[GELADEIRA].angy = 0;
 }
 
 // Função usada para especificar o volume de visualização
@@ -758,6 +727,16 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
     if ( key == 27 )
         exit( 0 );
 
+    if ( key == 'o' || key == 'O' ){
+        transf[ GELADEIRA ].angy += PASSO;
+        maxTrans();
+    }
+
+    if ( key == 'c' || key == 'C' ){
+        transf[ GELADEIRA ].angy -= PASSO;
+        maxTrans();
+    }
+
     if ( key == 'v' || key == 'V' )
         visual_eixo =! visual_eixo;
 
@@ -770,17 +749,19 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
     if ( key == '+' || key == '=' ){
         switch( transformacao ){
             case 'R':
-                if ( eixo == 'X'){
-                    transf[ objeto ].angx += PASSO;
-                    maxTrans();
-                }
-                else if ( eixo == 'Y'){
-                    transf[ objeto ].angy += PASSO;
-                    maxTrans();
-                }
-                else{
-                    transf[ objeto ].angz += PASSO;
-                    maxTrans();
+                if(objeto != 1){
+                    if ( eixo == 'X'){
+                        transf[ objeto ].angx += PASSO;
+                        maxTrans();
+                    }
+                    else if ( eixo == 'Y'){
+                        transf[ objeto ].angy += PASSO;
+                        maxTrans();
+                    }
+                    else{
+                        transf[ objeto ].angz += PASSO;
+                        maxTrans();
+                    }
                 }
                 break;
 
@@ -804,20 +785,21 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
     if ( key == '-' || key == '_' ){
         switch( transformacao ){
             case 'R':
-                if ( eixo == 'X'){
-                    transf[ objeto ].angx -= PASSO;
-                    maxTrans();
-                }
+                if(objeto != 1){
+                    if ( eixo == 'X'){
+                        transf[ objeto ].angx -= PASSO;
+                        maxTrans();
+                    }
 
-                else if ( eixo == 'Y'){
-                    transf[ objeto ].angy -= PASSO;
-                    maxTrans();
+                    else if ( eixo == 'Y'){
+                        transf[ objeto ].angy -= PASSO;
+                        maxTrans();
+                    }
+                    else{
+                        transf[ objeto ].angz -= PASSO;
+                        maxTrans();
+                    }
                 }
-                else{
-                    transf[ objeto ].angz -= PASSO;
-                    maxTrans();
-                }
-
                 break;
 
             case 'T':
@@ -858,13 +840,13 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
    }
 
    // leva a câmera para cima
-   if ( key == 'C' ){
+   if ( key == 'H' ){
        camera.posy += PASSO;
        camera.alvoy += PASSO;//leva o alvo junto
    }
 
    // leva a câmera para baixo
-   if ( key == 'c' ){
+   if ( key == 'h' ){
        camera.posy -= PASSO;
        camera.alvoy -= PASSO;//leva o alvo junto
    }
@@ -986,11 +968,13 @@ int main( int argc , char *argv[] ){
    printf("\nX x => seleciona eixo X");
    printf("\nY y => seleciona eixo Y");
    printf("\nZ z => seleciona eixo Z");
+   printf("\nO o => abre a porta");
+   printf("\nC c => fecha a porta");
    printf("\n+ - => direção da transformação");
    printf("\n\n----------------------OUTROS COMANDOS-----------------------");
    printf("\nG g => rotaciona a câmera");
    printf("\nD d => muda a posição da câmera no eixo X");
-   printf("\nC c => muda a posição da câmera no eixo Y");
+   printf("\nH h => muda a posição da câmera no eixo Y");
    printf("\nP p => muda a posição da câmera no eixo Z");
    printf("\nE e => muda o alvo x");
    printf("\nB b => muda o alvo y");
