@@ -191,31 +191,31 @@ void Define_Iluminacao( void ){
     glEnable ( GL_LIGHT0 );
 
     // Ativa o uso da luz ambiente
-//    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
+    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
+
+    // poisção da luz no universo
+    glLightfv( GL_LIGHT0 , GL_POSITION , luz.posicao );
+
+    // configura a luz ambiente
+    glLightfv( GL_LIGHT0 , GL_AMBIENT  , luz.ambiente  );
+
+    // configura a luz difusa
+    glLightfv( GL_LIGHT0 , GL_DIFFUSE  , luz.difusa );
+
+    // configura a luz especular
+    glLightfv( GL_LIGHT0 , GL_SPECULAR , luz.especular );
+
+//      glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight );
 //
-//    // poisção da luz no universo
-//    glLightfv( GL_LIGHT0 , GL_POSITION , luz.posicao );
+//      glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight );
 //
-//    // configura a luz ambiente
-//    glLightfv( GL_LIGHT0 , GL_AMBIENT  , luz.ambiente  );
+//      glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition );
 //
-//    // configura a luz difusa
-//    glLightfv( GL_LIGHT0 , GL_DIFFUSE  , luz.difusa );
+//      glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight );
 //
-//    // configura a luz especular
-//    glLightfv( GL_LIGHT0 , GL_SPECULAR , luz.especular );
-
-      glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight );
-
-      glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight );
-
-      glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition );
-
-      glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight );
-
-      glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
-      glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dirVector);
-      glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 1);
+//      glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
+//      glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dirVector);
+//      glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 1);
 
     // Define a refletância do material
     glMaterialfv( GL_FRONT , GL_SPECULAR  , luz.especularidade );
@@ -321,10 +321,10 @@ void desenhacubo(int x, int y, int z){
    glPushMatrix(); // face frontal
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   0.0 ,  1.0 );	// normal da face
-           glVertex3d(-x,-y,z);
-           glVertex3d(x,-y,z);
-           glVertex3d(x,y,z);
-           glVertex3d(-x,y,z);
+           glTexCoord2f(  1.0 , 1.0 ); glVertex3d(-x,-y,z);
+           glTexCoord2f(  0.0 , 1.0 );glVertex3d(x,-y,z);
+           glTexCoord2f(  0.0 , 0.0 ); glVertex3d(x,y,z);
+           glTexCoord2f(  1.0 , 0.0 );glVertex3d(-x,y,z);
         glEnd();
     glPopMatrix();
 
@@ -334,10 +334,10 @@ void desenhacubo(int x, int y, int z){
         glRotated(180,0,1,0);
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   0.0 ,  -1.0 );
-           glTexCoord2f(  0.0 , 0.0 );  glVertex3d(-x,-y,-z);
-           glTexCoord2f(  1.0 , 0.0 );  glVertex3d(x,-y,-z);
-           glTexCoord2f(  1.0 , 1.0 ); glVertex3d(x,y,-z);
-           glTexCoord2f(  0.0 , 1.0 ); glVertex3d(-x,y,-z);
+            glVertex3d(-x,-y,-z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(x,y,-z);
+            glVertex3d(-x,y,-z);
         glEnd();
     glPopMatrix();
 
@@ -416,6 +416,7 @@ void desenhacubo2(int x, int y, int z){ // pés
 
     glPushMatrix(); // face direita
         glColor3ub(255,255,255);
+
         glBegin(GL_QUADS);
             glVertex3d(x,-y,z);
             glVertex3d(x,-y,-z);
@@ -568,6 +569,7 @@ void Desenha(void){
             glRotatef( transf[GELADEIRA].angy, 0,1,0);
             glRotatef( transf[GELADEIRA].angz, 0,0,1);
             glTranslatef(50, 0, 0);
+            glRotatef(180,1,0,0);
             desenhacubo(50,50,2);
         glPopMatrix();
 
@@ -575,12 +577,14 @@ void Desenha(void){
 
         glPushMatrix(); //CUBO TRASEIRO
             glTranslatef( 0 , 0 , -50 );
+            glRotatef(180,1,0,0);
             desenhacubo(50,50,2);
         glPopMatrix();
 
         glPushMatrix(); //CUBO ESQUERDO
             glTranslatef( -50 , 0 , 0 );
             glRotated(90, 0, 1, 0);
+            glRotatef(180,1,0,0);
             desenhacubo(50,50,2);
 
         glPopMatrix();
@@ -594,6 +598,7 @@ void Desenha(void){
         glPushMatrix(); //CUBO SUPERIOR
             glTranslatef( 0 , 50 , 0 );
             glRotatef( 90, 1, 0, 0);
+            glRotatef(180,1,0,0);
             desenhacubo(50,50,2);
         glPopMatrix();
 
