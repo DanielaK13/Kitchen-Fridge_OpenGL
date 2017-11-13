@@ -26,6 +26,7 @@
 #define NUM_TEX   1
 #define TEXTURA1  1000
 #define TEXTURA2  1001
+#define TEXTURA3  1002
 
 
 struct tipo_camera {
@@ -176,6 +177,11 @@ void Texturizacao(){
    glBindTexture ( GL_TEXTURE_2D, texture_id[1] );//armazena na posição 0 do vetor
    LoadBMP ( "laranja.bmp" ); // lê a textura
 
+   texture_id[ 2 ] = TEXTURA3; // define um numero (identificacao) para a textura
+   glBindTexture ( GL_TEXTURE_2D, texture_id[2] );//armazena na posição 0 do vetor
+   LoadBMP ( "maca.bmp" ); // lê a textura
+
+
    glTexGeni( GL_S , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
    glTexGeni( GL_T , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
 }
@@ -205,24 +211,35 @@ void Define_Iluminacao( void ){
     // configura a luz especular
     glLightfv( GL_LIGHT0 , GL_SPECULAR , luz.especular );
 
-//      glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight );
-//
-//      glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight );
-//
-//      glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition );
-//
-//      glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight );
-//
-//      glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
-//      glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dirVector);
-//      glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 1);
 
-    // Define a refletância do material
-    glMaterialfv( GL_FRONT , GL_SPECULAR  , luz.especularidade );
+    // Ativa o uso da luz ambiente
+    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
 
-    // define o brilho do material
-    glMateriali ( GL_FRONT , GL_SHININESS , 10 );
+    // poisção da luz no universo
+    glLightfv( GL_LIGHT1 , GL_POSITION , luz.posicao );
 
+    // configura a luz ambiente
+    glLightfv( GL_LIGHT1 , GL_AMBIENT  , luz.ambiente  );
+
+    // configura a luz difusa
+    glLightfv( GL_LIGHT1 , GL_DIFFUSE  , luz.difusa );
+
+    // configura a luz especular
+    glLightfv( GL_LIGHT1 , GL_SPECULAR , luz.especular );
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight );
+
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight );
+
+    glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition );
+
+    glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight );
+
+    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dirVector);
+    glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 1);
+
+    glEnable ( GL_LIGHT1 );
 
     glEnable(GL_COLOR_MATERIAL);
 }
@@ -271,7 +288,7 @@ void Inicializa (void){
 
     // posição da fonte de luz
     luz.posicao[ 0 ] = 100.0;
-    luz.posicao[ 1 ] = 100.0;
+    luz.posicao[ 1 ] = -50.0;
     luz.posicao[ 2 ] = 100.0;
     luz.posicao[ 3 ] = 1.0;
 
@@ -636,10 +653,21 @@ void Desenha(void){
 
         glEnable(GL_TEXTURE_2D);
         glBindTexture ( GL_TEXTURE_2D, TEXTURA2 );
+
         glPushMatrix(); // laranja
             glTranslatef(-10,-10,-10);
-            glRotatef(180,1,0,0);
-            glutSolidSphere(10,20,20);
+            glRotatef(90,0,1,0);
+            gluSphere(quadObj,10,20,20);
+        glPopMatrix();
+
+        glDisable(GL_TEXTURE_2D);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture ( GL_TEXTURE_2D, TEXTURA3 );
+
+        glPushMatrix(); // maçã
+            glTranslatef(-30,-10,-10);
+            glRotatef(90,0,1,0);
+            gluSphere(quadObj,10,20,20);
         glPopMatrix();
 
         glDisable(GL_TEXTURE_2D);
