@@ -59,15 +59,28 @@ GLfloat qaLightPosition[] = {0,-5,0,0};
 GLfloat qaLightDirection[] = {1,1,1,0};
 GLfloat dirVector[] = {0.0,1.0,0.0,0.0};
 
+
 // Posição de cada luz
-GLfloat posLuz[4] = {
-	{  0,0,0,0 }
+GLfloat posLuz[1][4] = {
+	{  40, 10,  -50, 1 }
 };
 
 // Direção de cada luz
-GLfloat dirLuz[3] = {
-	{ 0,0,-1 }
+GLfloat dirLuz[1][3] = {
+	{ 0,-1,0 }
 };
+
+// Cor difusa de cada luz
+GLfloat luzDifusa[1][4] = {
+	{ 1,1,0,0 }
+};
+
+// Cor especular de cada luz
+GLfloat luzEspecular[1][4] = {
+	{ 1,1,0,1 }
+};
+
+GLfloat xispa[ 3 ] = { 10.0 , 10.0 , 10.0 };
 
 typedef struct tipo_transformacao_{
     GLfloat dx, dy, dz;
@@ -188,58 +201,69 @@ void Texturizacao(){
 
 // Funcão que define a iluminação da cena
 void Define_Iluminacao( void ){
-    // modelo de preenchimento dos objetos
+
+    GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0};
+
+	// Capacidade de brilho do material
+	GLfloat especularidade[4]={0.5,0.5,0.5,1.0};
+	GLint especMaterial = 90;
+
+	// Define a refletância do material
+	glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
+	// Define a concentração do brilho
+	glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+
+	// Ativa o uso da luz ambiente
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
+
+    glEnable ( GL_LIGHT0 );
+	// Define os parâmetros das fontes de luz
+	int i=0;
+	for(i=0;i<1;++i)
+	{
+		glLightfv(GL_LIGHT0+i, GL_AMBIENT, luzAmbiente);
+		glLightfv(GL_LIGHT0+i, GL_DIFFUSE, luzDifusa[i] );
+		glLightfv(GL_LIGHT0+i, GL_SPECULAR, luzEspecular[i] );
+		glLightfv(GL_LIGHT0+i, GL_POSITION, posLuz[i] );
+		glLightfv(GL_LIGHT0+i,GL_SPOT_DIRECTION,dirLuz[i]);
+		glLightf(GL_LIGHT0+i,GL_SPOT_CUTOFF,200.0);
+		glLightf(GL_LIGHT0+i,GL_SPOT_EXPONENT,xispa[ i ]);
+	}
+
     glShadeModel( GL_SMOOTH );
     //glShadeModel( GL_FLAT );
 
     // habilita iluminação
     glEnable( GL_LIGHTING );
-    glEnable ( GL_LIGHT0 );
+    glEnable ( GL_LIGHT3 );
+//    // Ativa o uso da luz ambiente
+//    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
+//    // poisção da luz no universo
+//    glLightfv( GL_LIGHT3 , GL_POSITION , luz.posicao );
+//    // configura a luz ambiente
+//    glLightfv( GL_LIGHT3 , GL_AMBIENT  , luz.ambiente  );
+//    // configura a luz difusa
+//    glLightfv( GL_LIGHT3 , GL_DIFFUSE  , luz.difusa );
+//    // configura a luz especular
+//    glLightfv( GL_LIGHT3 , GL_SPECULAR , luz.especular );
 
-    // Ativa o uso da luz ambiente
-    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
-
-    // poisção da luz no universo
-    glLightfv( GL_LIGHT0 , GL_POSITION , luz.posicao );
-
-    // configura a luz ambiente
-    glLightfv( GL_LIGHT0 , GL_AMBIENT  , luz.ambiente  );
-
-    // configura a luz difusa
-    glLightfv( GL_LIGHT0 , GL_DIFFUSE  , luz.difusa );
-
-    // configura a luz especular
-    glLightfv( GL_LIGHT0 , GL_SPECULAR , luz.especular );
+//
+//    glEnable ( GL_LIGHT1 );
+//    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
+//    glLightfv( GL_LIGHT1 , GL_POSITION , luz.posicao );
+//    glLightfv( GL_LIGHT1 , GL_AMBIENT  , luz.ambiente  );
+//    glLightfv( GL_LIGHT1 , GL_DIFFUSE  , luz.difusa );
+//    glLightfv( GL_LIGHT1 , GL_SPECULAR , luz.especular );
 
 
-    // Ativa o uso da luz ambiente
-    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
-
-    // poisção da luz no universo
-    glLightfv( GL_LIGHT1 , GL_POSITION , luz.posicao );
-
-    // configura a luz ambiente
-    glLightfv( GL_LIGHT1 , GL_AMBIENT  , luz.ambiente  );
-
-    // configura a luz difusa
-    glLightfv( GL_LIGHT1 , GL_DIFFUSE  , luz.difusa );
-
-    // configura a luz especular
-    glLightfv( GL_LIGHT1 , GL_SPECULAR , luz.especular );
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight );
-
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight );
-
-    glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition );
-
-    glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight );
-
-    glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
-    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dirVector);
-    glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 1);
-
-    glEnable ( GL_LIGHT1 );
+//    glEnable ( GL_LIGHT2 );
+//    glLightfv(GL_LIGHT2, GL_AMBIENT, qaAmbientLight );
+//    glLightfv(GL_LIGHT2, GL_DIFFUSE, qaDiffuseLight );
+//    glLightfv(GL_LIGHT2, GL_POSITION, qaLightPosition );
+//    glLightfv(GL_LIGHT2, GL_SPECULAR, qaSpecularLight );
+//    glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 30.0);
+//    glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dirVector);
+//    glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 1);
 
     glEnable(GL_COLOR_MATERIAL);
 }
@@ -299,13 +323,13 @@ void Inicializa (void){
     luz.ambiente[ 3 ] = 1.0;
 
     // cor e intensidade da luz difusa
-    luz.difusa[ 0 ] = 0.5;
+    luz.difusa[ 0 ] = 2.0;
     luz.difusa[ 1 ] = 0.5;
     luz.difusa[ 2 ] = 0.5;
     luz.difusa[ 3 ] = 1.0;
 
     // cor e intensidade da luz especular
-    luz.especular[ 0 ] = 0.8;
+    luz.especular[ 0 ] = 2.0;
     luz.especular[ 1 ] = 0.8;
     luz.especular[ 2 ] = 0.8;
     luz.especular[ 3 ] = 1.0;
@@ -556,12 +580,34 @@ void desenhacubo3(int x, int y, int z){ // prateleira
 // Função callback chamada para fazer o desenho
 void Desenha(void){
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Chama a função que especifica os parâmetros de iluminação
+	Define_Iluminacao();
+
+	// Desabilita a iluminação para desenhar as esferas
+	glDisable(GL_LIGHTING);
+	int i=0;
+	for(i=0;i<3;++i)
+	{
+		// Desenha "esferas" nas posições das fontes de luz
+		glPushMatrix();
+		glTranslatef(posLuz[i][0],posLuz[i][1],posLuz[i][2]);
+		glColor3f(luzDifusa[i][0],luzDifusa[i][1],luzDifusa[i][2]);
+		//glColor3f(luzEspecular[i][0],luzEspecular[i][1],luzEspecular[i][2]);
+		glutSolidSphere(5,20,20);
+		glPopMatrix();
+	}
+	// Habilita iluminação novamente
+	glEnable(GL_LIGHTING);
+
+
     GLUquadricObj *quadObj; // um objeto é criado
     quadObj = gluNewQuadric();
     gluQuadricTexture(quadObj, GL_TRUE);
     gluQuadricDrawStyle(quadObj, GLU_FILL);
 
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+   // glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     glLineWidth( 1 );
 
