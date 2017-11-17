@@ -207,7 +207,7 @@ void Texturizacao(){
 
    texture_id[ 0 ] = TEXTURA1; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[0] );//armazena na posição 0 do vetor
-   LoadBMP ( "textPorta.bmp" ); // lê a textura
+   LoadBMP ( "textPorta2.bmp" ); // lê a textura
 
    texture_id[ 1 ] = TEXTURA2; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[1] );//armazena na posição 0 do vetor
