@@ -48,39 +48,62 @@ struct tipo_luz {
    GLfloat especular[ 4 ];
    GLfloat especularidade[ 4 ];
 };
+//
+//GLfloat qaAmbientLight[] = {0.1,0.1,0.1,1.0};
+//GLfloat qaDiffuseLight[] = {1,1,1,1.0};
+//GLfloat qaSpecularLight[] = {1.0,1.0,1.0,1.0};
+//GLfloat emitLight[] = {0.9,0.9,0.9,0.01};
+//GLfloat Noemit[] = {0.0,0.0,0.0,1.0};
+//
+////GLfloat qaLightPosition[] = {0,1,0,0};
+//GLfloat qaLightDirection[] = {1,1,1,0};
+//GLfloat dirVector[] = {0.0,1.0,0.0,0.0};
+//
+//
+//// Posição de cada luz
+//GLfloat qaLightPosition[2][4] = {
+//	{0,1,0,0}
+//	{0,-1,0,0}
+//};
+//
+//// Direção de cada luz
+//GLfloat dirLuz[1][3] = {
+//	{ 1,-1,0 }
+//};
+//
+//// Cor difusa de cada luz
+//GLfloat luzDifusa[1][4] = {
+//	{ 1,1,0,0 }
+//};
+//
+//// Cor especular de cada luz
+//GLfloat luzEspecular[1][4] = {
+//	{ 1,1,0,0 }
+//};
 
-GLfloat qaAmbientLight[] = {0.1,0.1,0.1,1.0};
-GLfloat qaDiffuseLight[] = {1,1,1,1.0};
-GLfloat qaSpecularLight[] = {1.0,1.0,1.0,1.0};
-GLfloat emitLight[] = {0.9,0.9,0.9,0.01};
-GLfloat Noemit[] = {0.0,0.0,0.0,1.0};
 
-GLfloat qaLightPosition[] = {0,-5,0,0};
-GLfloat qaLightDirection[] = {1,1,1,0};
-GLfloat dirVector[] = {0.0,1.0,0.0,0.0};
-
-
-// Posição de cada luz
-GLfloat posLuz[1][4] = {
-	{  40, 10,  -50, 1 }
-};
-
-// Direção de cada luz
-GLfloat dirLuz[1][3] = {
-	{ 0,-1,0 }
-};
-
-// Cor difusa de cada luz
-GLfloat luzDifusa[1][4] = {
-	{ 1,1,0,0 }
-};
-
-// Cor especular de cada luz
-GLfloat luzEspecular[1][4] = {
-	{ 1,1,0,1 }
-};
-
-GLfloat xispa[ 3 ] = { 10.0 , 10.0 , 10.0 };
+//// Posição de cada luz
+//GLfloat posLuz[1][4] = {
+//	{  0, 10,  0, 1 }
+//};
+//
+//// Direção de cada luz
+//GLfloat dirLuz[1][3] = {
+//	{ 1,-1,0 }
+//};
+//
+//// Cor difusa de cada luz
+//GLfloat luzDifusa[1][4] = {
+//	{ 1,1,0,0 }
+//};
+//
+//// Cor especular de cada luz
+//GLfloat luzEspecular[1][4] = {
+//	{ 1,1,0,0 }
+//};
+//
+//
+//GLfloat xispa[ 3 ] = { 10.0 , 10.0 , 10.0 };
 
 typedef struct tipo_transformacao_{
     GLfloat dx, dy, dz;
@@ -202,70 +225,92 @@ void Texturizacao(){
 // Funcão que define a iluminação da cena
 void Define_Iluminacao( void ){
 
-    GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0};
-
-	// Capacidade de brilho do material
-	GLfloat especularidade[4]={0.5,0.5,0.5,1.0};
-	GLint especMaterial = 90;
-
-	// Define a refletância do material
-	glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
-	// Define a concentração do brilho
-	glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
-
-	// Ativa o uso da luz ambiente
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
-
-    glEnable ( GL_LIGHT0 );
-	// Define os parâmetros das fontes de luz
-	int i=0;
-	for(i=0;i<1;++i)
-	{
-		glLightfv(GL_LIGHT0+i, GL_AMBIENT, luzAmbiente);
-		glLightfv(GL_LIGHT0+i, GL_DIFFUSE, luzDifusa[i] );
-		glLightfv(GL_LIGHT0+i, GL_SPECULAR, luzEspecular[i] );
-		glLightfv(GL_LIGHT0+i, GL_POSITION, posLuz[i] );
-		glLightfv(GL_LIGHT0+i,GL_SPOT_DIRECTION,dirLuz[i]);
-		glLightf(GL_LIGHT0+i,GL_SPOT_CUTOFF,200.0);
-		glLightf(GL_LIGHT0+i,GL_SPOT_EXPONENT,xispa[ i ]);
-	}
-
-    glShadeModel( GL_SMOOTH );
-    //glShadeModel( GL_FLAT );
-
-    // habilita iluminação
-    glEnable( GL_LIGHTING );
-    glEnable ( GL_LIGHT3 );
-//    // Ativa o uso da luz ambiente
-//    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
-//    // poisção da luz no universo
-//    glLightfv( GL_LIGHT3 , GL_POSITION , luz.posicao );
-//    // configura a luz ambiente
-//    glLightfv( GL_LIGHT3 , GL_AMBIENT  , luz.ambiente  );
-//    // configura a luz difusa
-//    glLightfv( GL_LIGHT3 , GL_DIFFUSE  , luz.difusa );
-//    // configura a luz especular
-//    glLightfv( GL_LIGHT3 , GL_SPECULAR , luz.especular );
-
+//    GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0};
 //
-//    glEnable ( GL_LIGHT1 );
+//	// Capacidade de brilho do material
+//	GLfloat especularidade[4]={0.5,0.5,0.5,1.0};
+//	GLint especMaterial = 90;
+//
+//	// Define a refletância do material
+//	glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
+//	// Define a concentração do brilho
+//	glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+//
+//	// Ativa o uso da luz ambiente
+//	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
+//
+//
+//    // habilita iluminação
+//    glEnable( GL_LIGHTING );
+//
+//
+////    glEnable ( GL_LIGHT1 );
+////    glEnable ( GL_LIGHT2 );
+////    glEnable ( GL_LIGHT3 );
+////	// Define os parâmetros das fontes de luz
+//
+//    glShadeModel( GL_SMOOTH );
+//    //glShadeModel( GL_FLAT );
+//
+//    //glEnable ( GL_LIGHT1 );
 //    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
 //    glLightfv( GL_LIGHT1 , GL_POSITION , luz.posicao );
 //    glLightfv( GL_LIGHT1 , GL_AMBIENT  , luz.ambiente  );
 //    glLightfv( GL_LIGHT1 , GL_DIFFUSE  , luz.difusa );
 //    glLightfv( GL_LIGHT1 , GL_SPECULAR , luz.especular );
-
-
+//
+//
 //    glEnable ( GL_LIGHT2 );
 //    glLightfv(GL_LIGHT2, GL_AMBIENT, qaAmbientLight );
 //    glLightfv(GL_LIGHT2, GL_DIFFUSE, qaDiffuseLight );
 //    glLightfv(GL_LIGHT2, GL_POSITION, qaLightPosition );
 //    glLightfv(GL_LIGHT2, GL_SPECULAR, qaSpecularLight );
-//    glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 30.0);
+//    glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 200.0);
 //    glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dirVector);
 //    glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 1);
+//
+//    glEnable ( GL_LIGHT3 );
+//    glLightfv(GL_LIGHT3, GL_AMBIENT, qaAmbientLight );
+//    glLightfv(GL_LIGHT3, GL_DIFFUSE, qaDiffuseLight );
+//    glLightfv(GL_LIGHT3, GL_POSITION, qaLightPosition );
+//    glLightfv(GL_LIGHT3, GL_SPECULAR, qaSpecularLight );
+//    glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 200.0);
+//    glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, dirVector);
+//    glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 1);
+//
+//    glEnable(GL_COLOR_MATERIAL);
+
+// modelo de preenchimento dos objetos
+    glShadeModel( GL_SMOOTH );
+    //glShadeModel( GL_FLAT );
+
+    // habilita iluminação
+    glEnable( GL_LIGHTING );
+
+    // Ativa o uso da luz ambiente
+    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
+
+    // poisção da luz no universo
+    glLightfv( GL_LIGHT0 , GL_POSITION , luz.posicao );
+
+    // configura a luz ambiente
+    glLightfv( GL_LIGHT0 , GL_AMBIENT  , luz.ambiente  );
+    // configura a luz difusa
+    glLightfv( GL_LIGHT0 , GL_DIFFUSE  , luz.difusa );
+    // configura a luz especular
+    glLightfv( GL_LIGHT0 , GL_SPECULAR , luz.especular );
+
+    //habilita a luz 0
+    glEnable ( GL_LIGHT0 );
+
+    // Define a refletância do material
+    glMaterialfv( GL_FRONT , GL_SPECULAR  , luz.especularidade );
+
+    // define o brilho do material
+    glMateriali ( GL_FRONT , GL_SHININESS , 20 );
 
     glEnable(GL_COLOR_MATERIAL);
+
 }
 
 // Inicializa parâmetros de rendering
@@ -317,21 +362,21 @@ void Inicializa (void){
     luz.posicao[ 3 ] = 1.0;
 
     // cor e intensidade da luz ambiente
-    luz.ambiente[ 0 ] = 0.2;
-    luz.ambiente[ 1 ] = 0.2;
-    luz.ambiente[ 2 ] = 0.2;
+    luz.ambiente[ 0 ] = 0.3;
+    luz.ambiente[ 1 ] = 0.3;
+    luz.ambiente[ 2 ] = 0.3;
     luz.ambiente[ 3 ] = 1.0;
 
     // cor e intensidade da luz difusa
-    luz.difusa[ 0 ] = 2.0;
-    luz.difusa[ 1 ] = 0.5;
-    luz.difusa[ 2 ] = 0.5;
+    luz.difusa[ 0 ] = 0.8;
+    luz.difusa[ 1 ] = 0.8;
+    luz.difusa[ 2 ] = 0.8;
     luz.difusa[ 3 ] = 1.0;
 
     // cor e intensidade da luz especular
     luz.especular[ 0 ] = 2.0;
-    luz.especular[ 1 ] = 0.8;
-    luz.especular[ 2 ] = 0.8;
+    luz.especular[ 1 ] = 2.0;
+    luz.especular[ 2 ] = 2.0;
     luz.especular[ 3 ] = 1.0;
 
     // cor e intensidade da especularidade
@@ -514,7 +559,6 @@ void desenhacubo3(int x, int y, int z){ // prateleira
     glPopMatrix();
 
     glPushMatrix(); // face traseira
-        glColor3ub(255,255,255);
         glTranslated(0,0,-2);
         glRotated(180,0,1,0);
         glBegin(GL_QUADS);
@@ -523,6 +567,77 @@ void desenhacubo3(int x, int y, int z){ // prateleira
            glVertex3d(x,-y,-z);
            glVertex3d(x,y,-z);
            glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face direita
+        glBegin(GL_QUADS);
+        glNormal3f(   1.0 ,   0.0 ,  0.0 );
+           glVertex3d(x,-y,z);
+           glVertex3d(x,-y,-z);
+           glVertex3d(x,y,-z);
+           glVertex3d(x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face esquerda
+        glTranslatef(-0,0,0);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   -1.0 ,   0.0 ,  0.0 );
+           glVertex3d(-x,-y,z);
+           glVertex3d(-x,-y,-z);
+           glVertex3d(-x,y,-z);
+           glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face superior
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   1.0 ,  0.0 );
+           glVertex3d(-x,y,z);
+           glVertex3d(x,y,z);
+           glVertex3d(x,y,-z);
+           glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face inferior
+        glTranslatef(0,-0,0);
+        glRotated(180,1,0,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   -1.0 ,  0.0 );
+            glVertex3d(-x,-y,z);
+            glVertex3d(x,-y,z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(-x,-y,-z);
+        glEnd();
+    glPopMatrix();
+}
+
+
+void desenhacubo4(int x, int y, int z){
+
+   glPushMatrix(); // face frontal
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  1.0 );	// normal da face
+           glTexCoord2f(  1.0 , 1.0 ); glVertex3d(-x,-y,z);
+           glTexCoord2f(  0.0 , 1.0 );glVertex3d(x,-y,z);
+           glTexCoord2f(  0.0 , 0.0 ); glVertex3d(x,y,z);
+           glTexCoord2f(  1.0 , 0.0 );glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face traseira
+        glColor3ub(255,255,255);
+        glTranslated(0,0,-2);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  -1.0 );
+            glVertex3d(-x,-y,-z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(x,y,-z);
+            glVertex3d(-x,y,-z);
         glEnd();
     glPopMatrix();
 
@@ -539,7 +654,7 @@ void desenhacubo3(int x, int y, int z){ // prateleira
 
     glPushMatrix(); // face esquerda
         glColor3ub(255,255,255);
-        glTranslatef(-0,0,0);
+        glTranslatef(-100,0,0);
         glRotated(180,0,1,0);
         glBegin(GL_QUADS);
         glNormal3f(   -1.0 ,   0.0 ,  0.0 );
@@ -563,7 +678,7 @@ void desenhacubo3(int x, int y, int z){ // prateleira
 
     glPushMatrix(); // face inferior
         glColor3ub(255,255,255);
-        glTranslatef(0,-0,0);
+        glTranslatef(0,-30,0);
         glRotated(180,1,0,0);
         glBegin(GL_QUADS);
         glNormal3f(   0.0 ,   -1.0 ,  0.0 );
@@ -573,10 +688,158 @@ void desenhacubo3(int x, int y, int z){ // prateleira
             glVertex3d(-x,-y,-z);
         glEnd();
     glPopMatrix();
-
-
-
 }
+
+void desenhacubo5(int x, int y, int z){
+
+   glPushMatrix(); // face frontal
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  1.0 );	// normal da face
+           glTexCoord2f(  1.0 , 1.0 ); glVertex3d(-x,-y,z);
+           glTexCoord2f(  0.0 , 1.0 );glVertex3d(x,-y,z);
+           glTexCoord2f(  0.0 , 0.0 ); glVertex3d(x,y,z);
+           glTexCoord2f(  1.0 , 0.0 );glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face traseira
+        glColor3ub(255,255,255);
+        glTranslated(0,0,-2);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  -1.0 );
+            glVertex3d(-x,-y,-z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(x,y,-z);
+            glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face direita
+        glColor3ub(255,255,255);
+        glBegin(GL_QUADS);
+        glNormal3f(   1.0 ,   0.0 ,  0.0 );
+           glVertex3d(x,-y,z);
+           glVertex3d(x,-y,-z);
+           glVertex3d(x,y,-z);
+           glVertex3d(x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face esquerda
+        glColor3ub(255,255,255);
+        glTranslatef(-20,0,0);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   -1.0 ,   0.0 ,  0.0 );
+           glVertex3d(-x,-y,z);
+           glVertex3d(-x,-y,-z);
+           glVertex3d(-x,y,-z);
+           glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face superior
+        glColor3ub(255,255,255);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   1.0 ,  0.0 );
+           glVertex3d(-x,y,z);
+           glVertex3d(x,y,z);
+           glVertex3d(x,y,-z);
+           glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face inferior
+        glColor3ub(255,255,255);
+        glTranslatef(0,-30,0);
+        glRotated(180,1,0,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   -1.0 ,  0.0 );
+            glVertex3d(-x,-y,z);
+            glVertex3d(x,-y,z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(-x,-y,-z);
+        glEnd();
+    glPopMatrix();
+}
+
+
+void desenhacubo6(int x, int y, int z){
+
+   glPushMatrix(); // face frontal
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  1.0 );	// normal da face
+           glTexCoord2f(  1.0 , 1.0 ); glVertex3d(-x,-y,z);
+           glTexCoord2f(  0.0 , 1.0 );glVertex3d(x,-y,z);
+           glTexCoord2f(  0.0 , 0.0 ); glVertex3d(x,y,z);
+           glTexCoord2f(  1.0 , 0.0 );glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face traseira
+        glColor3ub(255,255,255);
+        glTranslated(0,0,-2);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  -1.0 );
+            glVertex3d(-x,-y,-z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(x,y,-z);
+            glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face direita
+        glColor3ub(255,255,255);
+        glBegin(GL_QUADS);
+        glNormal3f(   1.0 ,   0.0 ,  0.0 );
+           glVertex3d(x,-y,z);
+           glVertex3d(x,-y,-z);
+           glVertex3d(x,y,-z);
+           glVertex3d(x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face esquerda
+        glColor3ub(255,255,255);
+        glTranslatef(-100,0,0);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   -1.0 ,   0.0 ,  0.0 );
+           glVertex3d(-x,-y,z);
+           glVertex3d(-x,-y,-z);
+           glVertex3d(-x,y,-z);
+           glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face superior
+        glColor3ub(255,255,255);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   1.0 ,  0.0 );
+           glVertex3d(-x,y,z);
+           glVertex3d(x,y,z);
+           glVertex3d(x,y,-z);
+           glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face inferior
+        glColor3ub(255,255,255);
+        glTranslatef(0,-20,0);
+        glRotated(180,1,0,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   -1.0 ,  0.0 );
+            glVertex3d(-x,-y,z);
+            glVertex3d(x,-y,z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(-x,-y,-z);
+        glEnd();
+    glPopMatrix();
+}
+
+
 // Função callback chamada para fazer o desenho
 void Desenha(void){
 
@@ -586,20 +849,20 @@ void Desenha(void){
 	Define_Iluminacao();
 
 	// Desabilita a iluminação para desenhar as esferas
-	glDisable(GL_LIGHTING);
-	int i=0;
-	for(i=0;i<3;++i)
-	{
-		// Desenha "esferas" nas posições das fontes de luz
-		glPushMatrix();
-		glTranslatef(posLuz[i][0],posLuz[i][1],posLuz[i][2]);
-		glColor3f(luzDifusa[i][0],luzDifusa[i][1],luzDifusa[i][2]);
-		//glColor3f(luzEspecular[i][0],luzEspecular[i][1],luzEspecular[i][2]);
-		glutSolidSphere(5,20,20);
-		glPopMatrix();
-	}
+	//glDisable(GL_LIGHTING);
+//	int i=0;
+//	for(i=0;i<3;++i)
+//	{
+//		// Desenha "esferas" nas posições das fontes de luz
+//		glPushMatrix();
+//		glTranslatef(posLuz[i][0],posLuz[i][1],posLuz[i][2]);
+//		glColor3f(luzDifusa[i][0],luzDifusa[i][1],luzDifusa[i][2]);
+//		//glColor3f(luzEspecular[i][0],luzEspecular[i][1],luzEspecular[i][2]);
+//		glutSolidSphere(5,20,20);
+//		glPopMatrix();
+//	}
 	// Habilita iluminação novamente
-	glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHTING);
 
 
     GLUquadricObj *quadObj; // um objeto é criado
@@ -607,7 +870,7 @@ void Desenha(void){
     gluQuadricTexture(quadObj, GL_TRUE);
     gluQuadricDrawStyle(quadObj, GLU_FILL);
 
-   // glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     glLineWidth( 1 );
 
@@ -634,6 +897,49 @@ void Desenha(void){
             glTranslatef(50, 0, 0);
             glRotatef(180,1,0,0);
             desenhacubo(50,50,2);
+            glPushMatrix();
+                glDisable(GL_TEXTURE_2D);
+                glColor3ub(255,255,255);;
+                glTranslatef(0,30,-20);
+                desenhacubo4(50,15,1);
+            glPopMatrix();
+
+            glPushMatrix();
+                glDisable(GL_TEXTURE_2D);
+                glColor3ub(255,255,255);;
+                glTranslatef(50,30,-10);
+                //glTranslatef(100,100,0);
+                glRotatef(90,0,1,0);
+                desenhacubo5(10,15,1);
+            glPopMatrix();
+
+            glPushMatrix();
+                glDisable(GL_TEXTURE_2D);
+                glColor3ub(255,255,255);;
+                glTranslatef(-50,30,-10);
+                //glTranslatef(100,100,0);
+                glRotatef(90,0,1,0);
+                desenhacubo5(10,15,1);
+            glPopMatrix();
+
+            glPushMatrix();
+                glDisable(GL_TEXTURE_2D);
+                glColor3ub(255,255,255);
+                glTranslatef(0,40,-10);
+                //glTranslatef(100,100,0);
+                glRotatef(90,1,0,0);
+                desenhacubo6(50,10,1);
+            glPopMatrix();
+
+            glPushMatrix();
+                glDisable(GL_TEXTURE_2D);
+                glColor3ub(255,255,255);
+                glTranslatef(0,-20,-10);
+                //glTranslatef(100,100,0);
+                glRotatef(90,1,0,0);
+                desenhacubo6(50,10,1);
+            glPopMatrix();
+
         glPopMatrix();
 
         glDisable(GL_TEXTURE_2D);
