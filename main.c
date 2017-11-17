@@ -49,15 +49,15 @@ struct tipo_luz {
    GLfloat especularidade[ 4 ];
 };
 //
-//GLfloat qaAmbientLight[] = {0.1,0.1,0.1,1.0};
-//GLfloat qaDiffuseLight[] = {1,1,1,1.0};
-//GLfloat qaSpecularLight[] = {1.0,1.0,1.0,1.0};
-//GLfloat emitLight[] = {0.9,0.9,0.9,0.01};
-//GLfloat Noemit[] = {0.0,0.0,0.0,1.0};
-//
-////GLfloat qaLightPosition[] = {0,1,0,0};
-//GLfloat qaLightDirection[] = {1,1,1,0};
-//GLfloat dirVector[] = {0.0,1.0,0.0,0.0};
+GLfloat qaAmbientLight[] = {0.1,0.1,0.1,1.0};
+GLfloat qaDiffuseLight[] = {1,1,1,1.0};
+GLfloat qaSpecularLight[] = {1.0,1.0,1.0,1.0};
+GLfloat emitLight[] = {0.9,0.9,0.9,0.01};
+GLfloat Noemit[] = {0.0,0.0,0.0,1.0};
+
+GLfloat qaLightPosition[] = {0,1,0,0};
+GLfloat qaLightDirection[] = {0,1,0,0};
+GLfloat dirVector[] = {0.0,1.0,0.0,0.0};
 //
 //
 //// Posição de cada luz
@@ -252,7 +252,7 @@ void Define_Iluminacao( void ){
 //    glShadeModel( GL_SMOOTH );
 //    //glShadeModel( GL_FLAT );
 //
-//    //glEnable ( GL_LIGHT1 );
+//    glEnable ( GL_LIGHT1 );
 //    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
 //    glLightfv( GL_LIGHT1 , GL_POSITION , luz.posicao );
 //    glLightfv( GL_LIGHT1 , GL_AMBIENT  , luz.ambiente  );
@@ -260,39 +260,27 @@ void Define_Iluminacao( void ){
 //    glLightfv( GL_LIGHT1 , GL_SPECULAR , luz.especular );
 //
 //
-//    glEnable ( GL_LIGHT2 );
-//    glLightfv(GL_LIGHT2, GL_AMBIENT, qaAmbientLight );
-//    glLightfv(GL_LIGHT2, GL_DIFFUSE, qaDiffuseLight );
-//    glLightfv(GL_LIGHT2, GL_POSITION, qaLightPosition );
-//    glLightfv(GL_LIGHT2, GL_SPECULAR, qaSpecularLight );
-//    glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 200.0);
-//    glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dirVector);
-//    glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 1);
+    glEnable ( GL_LIGHT2 );
+    glLightfv(GL_LIGHT2, GL_AMBIENT, qaAmbientLight );
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, qaDiffuseLight );
+    glLightfv(GL_LIGHT2, GL_POSITION, qaLightPosition );
+    glLightfv(GL_LIGHT2, GL_SPECULAR, qaSpecularLight );
+    glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 200.0);
+    glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dirVector);
+    glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 1);
 //
-//    glEnable ( GL_LIGHT3 );
-//    glLightfv(GL_LIGHT3, GL_AMBIENT, qaAmbientLight );
-//    glLightfv(GL_LIGHT3, GL_DIFFUSE, qaDiffuseLight );
-//    glLightfv(GL_LIGHT3, GL_POSITION, qaLightPosition );
-//    glLightfv(GL_LIGHT3, GL_SPECULAR, qaSpecularLight );
-//    glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 200.0);
-//    glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, dirVector);
-//    glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 1);
-//
-//    glEnable(GL_COLOR_MATERIAL);
+
 
 // modelo de preenchimento dos objetos
     glShadeModel( GL_SMOOTH );
-    //glShadeModel( GL_FLAT );
 
     // habilita iluminação
     glEnable( GL_LIGHTING );
 
     // Ativa o uso da luz ambiente
     glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
-
     // poisção da luz no universo
     glLightfv( GL_LIGHT0 , GL_POSITION , luz.posicao );
-
     // configura a luz ambiente
     glLightfv( GL_LIGHT0 , GL_AMBIENT  , luz.ambiente  );
     // configura a luz difusa
@@ -356,9 +344,9 @@ void Inicializa (void){
     camera.ang    = 45;
 
     // posição da fonte de luz
-    luz.posicao[ 0 ] = 100.0;
-    luz.posicao[ 1 ] = -50.0;
-    luz.posicao[ 2 ] = 100.0;
+    luz.posicao[ 0 ] = 200.0;
+    luz.posicao[ 1 ] = -200.0;
+    luz.posicao[ 2 ] = 200.0;
     luz.posicao[ 3 ] = 1.0;
 
     // cor e intensidade da luz ambiente
@@ -896,19 +884,18 @@ void Desenha(void){
             glRotatef( transf[GELADEIRA].angz, 0,0,1);
             glTranslatef(50, 0, 0);
             glRotatef(180,1,0,0);
-            desenhacubo(50,50,2);
+            desenhacubo(50,60,2);
             glPushMatrix();
                 glDisable(GL_TEXTURE_2D);
                 glColor3ub(255,255,255);;
-                glTranslatef(0,30,-20);
+                glTranslatef(0,40,-20);
                 desenhacubo4(50,15,1);
             glPopMatrix();
 
             glPushMatrix();
                 glDisable(GL_TEXTURE_2D);
                 glColor3ub(255,255,255);;
-                glTranslatef(50,30,-10);
-                //glTranslatef(100,100,0);
+                glTranslatef(50,40,-10);
                 glRotatef(90,0,1,0);
                 desenhacubo5(10,15,1);
             glPopMatrix();
@@ -916,8 +903,7 @@ void Desenha(void){
             glPushMatrix();
                 glDisable(GL_TEXTURE_2D);
                 glColor3ub(255,255,255);;
-                glTranslatef(-50,30,-10);
-                //glTranslatef(100,100,0);
+                glTranslatef(-50,40,-10);
                 glRotatef(90,0,1,0);
                 desenhacubo5(10,15,1);
             glPopMatrix();
@@ -925,8 +911,7 @@ void Desenha(void){
             glPushMatrix();
                 glDisable(GL_TEXTURE_2D);
                 glColor3ub(255,255,255);
-                glTranslatef(0,40,-10);
-                //glTranslatef(100,100,0);
+                glTranslatef(0,55,-10);
                 glRotatef(90,1,0,0);
                 desenhacubo6(50,10,1);
             glPopMatrix();
@@ -935,7 +920,6 @@ void Desenha(void){
                 glDisable(GL_TEXTURE_2D);
                 glColor3ub(255,255,255);
                 glTranslatef(0,-20,-10);
-                //glTranslatef(100,100,0);
                 glRotatef(90,1,0,0);
                 desenhacubo6(50,10,1);
             glPopMatrix();
@@ -947,53 +931,53 @@ void Desenha(void){
         glPushMatrix(); //CUBO TRASEIRO
             glTranslatef( 0 , 0 , -50 );
             glRotatef(180,1,0,0);
-            desenhacubo(50,50,2);
+            desenhacubo(50,60,2);
         glPopMatrix();
 
         glPushMatrix(); //CUBO ESQUERDO
             glTranslatef( -50 , 0 , 0 );
             glRotated(90, 0, 1, 0);
             glRotatef(180,1,0,0);
-            desenhacubo(50,50,2);
+            desenhacubo(50,60,2);
 
         glPopMatrix();
 
         glPushMatrix(); //CUBO DIREITO
             glTranslatef( 50 , 0 , 0 );
             glRotatef( 90, 0, 1, 0);
-            desenhacubo(50,50,2);
+            desenhacubo(50,60,2);
         glPopMatrix();
 
         glPushMatrix(); //CUBO SUPERIOR
-            glTranslatef( 0 , 50 , 0 );
+            glTranslatef( 0 , 60 , 0 );
             glRotatef( 90, 1, 0, 0);
             glRotatef(180,1,0,0);
             desenhacubo(50,50,2);
         glPopMatrix();
 
         glPushMatrix(); //CUBO INFERIOR
-            glTranslatef( 0 , -50 , 0 );
+            glTranslatef( 0 , -60 , 0 );
             glRotatef( 90, 1, 0, 0);
             desenhacubo(50,50,2);
         glPopMatrix();
 
         glPushMatrix(); // pé direito frente
-            glTranslatef(30,-54,30);
+            glTranslatef(30,-64,30);
             desenhacubo2(6,4,4);
         glPopMatrix();
 
         glPushMatrix(); // pé direito trás
-            glTranslatef(30,-54,-30);
+            glTranslatef(30,-64,-30);
             desenhacubo2(6,4,4);
         glPopMatrix();
 
         glPushMatrix(); // pé esquerdo frente
-            glTranslatef(-30,-54,30);
+            glTranslatef(-30,-64,30);
             desenhacubo2(6,4,4);
         glPopMatrix();
 
         glPushMatrix(); // pé esquerdo trás
-            glTranslatef(-30,-54,-30);
+            glTranslatef(-30,-64,-30);
             desenhacubo2(6,4,4);
         glPopMatrix();
 
