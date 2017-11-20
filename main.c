@@ -1348,7 +1348,7 @@ int main( int argc , char *argv[] ){
 
    // mostra na console um help sobre as teclas que o programa usa e o que cada uma faz
 
-   printf("\n----------------------COMANDOS BÁSICOS----------------------");
+   printf("\n----------------------COMANDOS BÁSICOS-----------------------");
    printf("\nI i => Inicialização");
    printf("\nV v => Visualizar cena");
    printf("\nR r => seleciona transformação ROTAÇÃO");
@@ -1367,9 +1367,9 @@ int main( int argc , char *argv[] ){
    printf("\nE e => muda o alvo x");
    printf("\nB b => muda o alvo y");
    printf("\nF f => muda o alvo z");
-   printf("\nK k => muda início da profundidade de visualização");
-   printf("\nL l => muda fim da profundidade de visualizaçaõ");
    printf("\nA a => muda o ângulo de abertura da lente");
+   printf("\nBotão esquerdo mouse => zoom +");
+   printf("\nBotão direito mouse => zoom -");
    printf("\nESC => sai do programa");
    printf("\n\n--------------------------OBJETOS---------------------------");
    printf("\n0 : GELADEIRA");
