@@ -27,6 +27,7 @@
 #define TEXTURA1  1000
 #define TEXTURA2  1001
 #define TEXTURA3  1002
+#define TEXTURA4  1003
 
 
 struct tipo_camera {
@@ -49,61 +50,15 @@ struct tipo_luz {
    GLfloat especularidade[ 4 ];
 };
 //
-GLfloat qaAmbientLight[] = {0.1,0.1,0.1,1.0};
-GLfloat qaDiffuseLight[] = {1,1,1,1.0};
-GLfloat qaSpecularLight[] = {1.0,1.0,1.0,1.0};
-GLfloat emitLight[] = {0.9,0.9,0.9,0.01};
-GLfloat Noemit[] = {0.0,0.0,0.0,1.0};
+GLfloat qaAmbientLight[] = {0.1 ,0.1, 0.1, 1.0};
+GLfloat qaDiffuseLight[] = {1, 1, 1, 1.0};
+GLfloat qaSpecularLight[] = {1.0, 1.0, 1.0, 1.0};
+GLfloat emitLight[] = {0.1, 0.1, 0.1, 0.01};
+GLfloat Noemit[] = {0.0, 0.0, 0.0, 1.0};
 
 GLfloat qaLightPosition[] = {0,1,0,0};
 GLfloat qaLightDirection[] = {0,1,0,0};
 GLfloat dirVector[] = {0.0,1.0,0.0,0.0};
-//
-//
-//// Posição de cada luz
-//GLfloat qaLightPosition[2][4] = {
-//	{0,1,0,0}
-//	{0,-1,0,0}
-//};
-//
-//// Direção de cada luz
-//GLfloat dirLuz[1][3] = {
-//	{ 1,-1,0 }
-//};
-//
-//// Cor difusa de cada luz
-//GLfloat luzDifusa[1][4] = {
-//	{ 1,1,0,0 }
-//};
-//
-//// Cor especular de cada luz
-//GLfloat luzEspecular[1][4] = {
-//	{ 1,1,0,0 }
-//};
-
-
-//// Posição de cada luz
-//GLfloat posLuz[1][4] = {
-//	{  0, 10,  0, 1 }
-//};
-//
-//// Direção de cada luz
-//GLfloat dirLuz[1][3] = {
-//	{ 1,-1,0 }
-//};
-//
-//// Cor difusa de cada luz
-//GLfloat luzDifusa[1][4] = {
-//	{ 1,1,0,0 }
-//};
-//
-//// Cor especular de cada luz
-//GLfloat luzEspecular[1][4] = {
-//	{ 1,1,0,0 }
-//};
-//
-//
-//GLfloat xispa[ 3 ] = { 10.0 , 10.0 , 10.0 };
 
 typedef struct tipo_transformacao_{
     GLfloat dx, dy, dz;
@@ -217,6 +172,9 @@ void Texturizacao(){
    glBindTexture ( GL_TEXTURE_2D, texture_id[2] );//armazena na posição 0 do vetor
    LoadBMP ( "maca.bmp" ); // lê a textura
 
+   texture_id[ 3 ] = TEXTURA4; // define um numero (identificacao) para a textura
+   glBindTexture ( GL_TEXTURE_2D, texture_id[3] );//armazena na posição 0 do vetor
+   LoadBMP ( "cocacola.bmp" ); // lê a textura
 
    glTexGeni( GL_S , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
    glTexGeni( GL_T , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
@@ -225,47 +183,12 @@ void Texturizacao(){
 // Funcão que define a iluminação da cena
 void Define_Iluminacao( void ){
 
-//    GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0};
-//
-//	// Capacidade de brilho do material
-//	GLfloat especularidade[4]={0.5,0.5,0.5,1.0};
-//	GLint especMaterial = 90;
-//
-//	// Define a refletância do material
-//	glMaterialfv(GL_FRONT,GL_SPECULAR, especularidade);
-//	// Define a concentração do brilho
-//	glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
-//
-//	// Ativa o uso da luz ambiente
-//	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
-//
-//
-//    // habilita iluminação
-//    glEnable( GL_LIGHTING );
-//
-//
-////    glEnable ( GL_LIGHT1 );
-////    glEnable ( GL_LIGHT2 );
-////    glEnable ( GL_LIGHT3 );
-////	// Define os parâmetros das fontes de luz
-//
-//    glShadeModel( GL_SMOOTH );
-//    //glShadeModel( GL_FLAT );
-//
-//    glEnable ( GL_LIGHT1 );
-//    glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
-//    glLightfv( GL_LIGHT1 , GL_POSITION , luz.posicao );
-//    glLightfv( GL_LIGHT1 , GL_AMBIENT  , luz.ambiente  );
-//    glLightfv( GL_LIGHT1 , GL_DIFFUSE  , luz.difusa );
-//    glLightfv( GL_LIGHT1 , GL_SPECULAR , luz.especular );
-//
-//
     glEnable ( GL_LIGHT2 );
     glLightfv(GL_LIGHT2, GL_AMBIENT, qaAmbientLight );
     glLightfv(GL_LIGHT2, GL_DIFFUSE, qaDiffuseLight );
     glLightfv(GL_LIGHT2, GL_POSITION, qaLightPosition );
     glLightfv(GL_LIGHT2, GL_SPECULAR, qaSpecularLight );
-    glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 200.0);
+    glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 95.0);
     glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dirVector);
     glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 1);
 
@@ -837,23 +760,6 @@ void Desenha(void){
 	// Chama a função que especifica os parâmetros de iluminação
 	Define_Iluminacao();
 
-	// Desabilita a iluminação para desenhar as esferas
-	//glDisable(GL_LIGHTING);
-//	int i=0;
-//	for(i=0;i<3;++i)
-//	{
-//		// Desenha "esferas" nas posições das fontes de luz
-//		glPushMatrix();
-//		glTranslatef(posLuz[i][0],posLuz[i][1],posLuz[i][2]);
-//		glColor3f(luzDifusa[i][0],luzDifusa[i][1],luzDifusa[i][2]);
-//		//glColor3f(luzEspecular[i][0],luzEspecular[i][1],luzEspecular[i][2]);
-//		glutSolidSphere(5,20,20);
-//		glPopMatrix();
-//	}
-	// Habilita iluminação novamente
-	//glEnable(GL_LIGHTING);
-
-
     GLUquadricObj *quadObj; // um objeto é criado
     quadObj = gluNewQuadric();
     gluQuadricTexture(quadObj, GL_TRUE);
@@ -984,7 +890,7 @@ void Desenha(void){
 
         glPushMatrix(); // prateleira
             glRotatef(90,1,0,0);
-            glTranslatef(0,0,-20);
+            glTranslatef(0,-20,-20);
             desenhacubo3(50,30,1);
         glPopMatrix();
 
@@ -1002,7 +908,7 @@ void Desenha(void){
         glBindTexture ( GL_TEXTURE_2D, TEXTURA3 );
 
         glPushMatrix(); // maçã
-            glTranslatef(-30,-10,-10);
+            glTranslatef(-30,-48,-10);
             glRotatef(90,0,1,0);
             gluSphere(quadObj,10,20,20);
         glPopMatrix();
@@ -1011,8 +917,17 @@ void Desenha(void){
 
         glPushMatrix(); // prateleira
             glRotatef(90,1,0,0);
-            glTranslatef(0,0,20);
+            glTranslatef(0,-20,20);
             desenhacubo3(50,30,1);
+        glPopMatrix();
+
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture ( GL_TEXTURE_2D, TEXTURA4 );
+        glPushMatrix(); //
+            //glColor3ub(1208,0,128);
+            glTranslatef(30,-20,-30);
+            glRotatef(270,1,0,0);
+            gluCylinder(quadObj,10,10,30,30,30);
         glPopMatrix();
 
 
