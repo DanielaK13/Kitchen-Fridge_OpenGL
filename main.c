@@ -2,7 +2,7 @@
 ********************************************************
             TRABALHO 1 DE COMPUTAÇÃO GRÁFICA
 
-                      GELADEIRA
+                      FRIGOBAR
 
             CHRYSTIAN MUNZ,
             DANIELA KUINCHTNER, 152064
@@ -28,6 +28,7 @@
 #define TEXTURA2  1001
 #define TEXTURA3  1002
 #define TEXTURA4  1003
+#define TEXTURA5  1004
 
 
 struct tipo_camera {
@@ -82,7 +83,7 @@ enum boolean {
 };
 typedef enum boolean bool;
 
-bool visual_eixo;
+bool visual_cozinha;
 char transformacao, eixo;
 GLint  objeto;
 GLfloat cab;
@@ -176,6 +177,10 @@ void Texturizacao(){
    glBindTexture ( GL_TEXTURE_2D, texture_id[3] );//armazena na posição 0 do vetor
    LoadBMP ( "cocacola.bmp" ); // lê a textura
 
+   texture_id[ 4 ] = TEXTURA5; // define um numero (identificacao) para a textura
+   glBindTexture ( GL_TEXTURE_2D, texture_id[4] );//armazena na posição 0 do vetor
+   LoadBMP ( "cozinha.bmp" ); // lê a textura
+
    glTexGeni( GL_S , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
    glTexGeni( GL_T , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
 }
@@ -244,6 +249,7 @@ void Inicializa (void){
     objeto = CENA;
     transformacao = 'R';
     eixo = 'Y';
+    visual_cozinha = true;
 
     // posição x da câmera no universo
     camera.posx   = 0;
@@ -751,6 +757,80 @@ void desenhacubo6(int x, int y, int z){
     glPopMatrix();
 }
 
+void desenhacubo7(int x, int y, int z){
+
+   glPushMatrix(); // face frontal
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  1.0 );	// normal da face
+           glTexCoord2f(  1.0 , 0.0 ); glVertex3d(-x,-y,z);
+           glTexCoord2f(  0.0 , 0.0 );glVertex3d(x,-y,z);
+           glTexCoord2f(  0.0 , 1.0 ); glVertex3d(x,y,z);
+           glTexCoord2f(  1.0 , 1.0 );glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face traseira
+        glColor3ub(255,255,255);
+        glTranslated(0,0,-4);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   0.0 ,  -1.0 );
+            glVertex3d(-x,-y,-z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(x,y,-z);
+            glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face direita
+        glColor3ub(255,255,255);
+        glBegin(GL_QUADS);
+        glNormal3f(   1.0 ,   0.0 ,  0.0 );
+           glVertex3d(x,-y,z);
+           glVertex3d(x,-y,-z);
+           glVertex3d(x,y,-z);
+           glVertex3d(x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face esquerda
+        glColor3ub(255,255,255);
+        glTranslatef(-100,0,0);
+        glRotated(180,0,1,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   -1.0 ,   0.0 ,  0.0 );
+           glVertex3d(-x,-y,z);
+           glVertex3d(-x,-y,-z);
+           glVertex3d(-x,y,-z);
+           glVertex3d(-x,y,z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face superior
+        glColor3ub(255,255,255);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   1.0 ,  0.0 );
+           glVertex3d(-x,y,z);
+           glVertex3d(x,y,z);
+           glVertex3d(x,y,-z);
+           glVertex3d(-x,y,-z);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix(); // face inferior
+        glColor3ub(255,255,255);
+        glTranslatef(0,-100,0);
+        glRotated(180,1,0,0);
+        glBegin(GL_QUADS);
+        glNormal3f(   0.0 ,   -1.0 ,  0.0 );
+            glVertex3d(-x,-y,z);
+            glVertex3d(x,-y,z);
+            glVertex3d(x,-y,-z);
+            glVertex3d(-x,-y,-z);
+        glEnd();
+    glPopMatrix();
+}
+
 
 // Função callback chamada para fazer o desenho
 void Desenha(void){
@@ -772,13 +852,30 @@ void Desenha(void){
     GLint raio, segmentos;
     GLfloat ang;
 
+    if(visual_cozinha){
+        //glDisable(GL_TEXTURE_2D);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture ( GL_TEXTURE_2D, TEXTURA5 );
+        glTranslatef( 0 , 0 , -200 );
+        desenhacubo7(250,250,2);
+        glTranslatef(-50,-133,60);
+        glRotatef( transf[CENA].angx, 1,0,0);
+        glRotatef( transf[CENA].angy, 0,1,0);
+        glRotatef( transf[CENA].angz, 0,0,1);
+    }
 
-    glPushMatrix(); //CENA
+
+    glPushMatrix();//cena
+
         glTranslatef( 0 , 0 , 0 );
+        glTranslatef( transf[ CENA ].dx , 39+transf[ CENA ].dy , transf[ CENA ].dz );
         glRotatef( transf[CENA].angx, 1,0,0);
         glRotatef( transf[CENA].angy, 0,1,0);
         glRotatef( transf[CENA].angz, 0,0,1);
 
+    glPushMatrix(); //fundo
+
+        glDisable(GL_TEXTURE_2D);
         glEnable(GL_TEXTURE_2D);
         glBindTexture ( GL_TEXTURE_2D, TEXTURA1 );
 
@@ -932,6 +1029,7 @@ void Desenha(void){
 
 
     glPopMatrix(); //fecha cena
+    glPopMatrix();
 
     glDisable( GL_TEXTURE_GEN_S );
     glDisable( GL_TEXTURE_GEN_T );
@@ -1012,6 +1110,9 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
     if ( key == 27 )
         exit( 0 );
 
+    if ( key == 'v' || key == 'V' )
+        visual_cozinha =! visual_cozinha;
+
     if ( key == 'o' || key == 'O' ){
         transf[ GELADEIRA ].angy += PASSO;
         maxTrans();
@@ -1022,10 +1123,11 @@ void GerenciaTeclado( GLubyte key , GLint x , GLint y ){
         maxTrans();
     }
 
-    if ( key == 'v' || key == 'V' )
-        visual_eixo =! visual_eixo;
+    if ( toupper( key ) == 'R' || toupper( key ) == 'R' )
+        transformacao = toupper( key );
 
-    if ( toupper( key ) == 'R' || toupper( key ) == 'T' )
+
+    if ( toupper( key ) == 'T' || toupper( key ) == 'T' )
         transformacao = toupper( key );
 
     if ( toupper( key ) == 'X' || toupper( key ) == 'Y' || toupper(key)=='Z')
@@ -1221,7 +1323,7 @@ int main( int argc , char *argv[] ){
    glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH  );
 
    // especifica as dimensões da janela na tela, em pixels
-   glutInitWindowSize( 500 , 500 );
+   glutInitWindowSize( 700 , 700 );
 
    // especifica a coordenada superior esquerda da janela na tela de vídeo
    glutInitWindowPosition( 0 , 0 );
@@ -1248,6 +1350,7 @@ int main( int argc , char *argv[] ){
 
    printf("\n----------------------COMANDOS BÁSICOS----------------------");
    printf("\nI i => Inicialização");
+   printf("\nV v => Visualizar cena");
    printf("\nR r => seleciona transformação ROTAÇÃO");
    printf("\nT t => seleciona transformação TRANSLAÇÃO");
    printf("\nX x => seleciona eixo X");
@@ -1270,7 +1373,6 @@ int main( int argc , char *argv[] ){
    printf("\nESC => sai do programa");
    printf("\n\n--------------------------OBJETOS---------------------------");
    printf("\n0 : GELADEIRA");
-   printf("\n1 : PORTA");
    printf("\n\n--------------------------JANELA----------------------------");
 
    // função simples que inicializa os parãmetros da câmera e da projeção a ser utilizada
