@@ -268,15 +268,13 @@ void Define_Iluminacao( void ){
     glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 200.0);
     glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dirVector);
     glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 1);
-//
-
 
 // modelo de preenchimento dos objetos
     glShadeModel( GL_SMOOTH );
 
     // habilita iluminação
     glEnable( GL_LIGHTING );
-
+    glEnable ( GL_LIGHT0 );
     // Ativa o uso da luz ambiente
     glLightModelfv( GL_LIGHT_MODEL_AMBIENT , luz.ambiente );
     // poisção da luz no universo
@@ -289,7 +287,7 @@ void Define_Iluminacao( void ){
     glLightfv( GL_LIGHT0 , GL_SPECULAR , luz.especular );
 
     //habilita a luz 0
-    glEnable ( GL_LIGHT0 );
+
 
     // Define a refletância do material
     glMaterialfv( GL_FRONT , GL_SPECULAR  , luz.especularidade );
@@ -353,25 +351,25 @@ void Inicializa (void){
     luz.ambiente[ 0 ] = 0.3;
     luz.ambiente[ 1 ] = 0.3;
     luz.ambiente[ 2 ] = 0.3;
-    luz.ambiente[ 3 ] = 1.0;
+    luz.ambiente[ 3 ] = 0.3;
 
     // cor e intensidade da luz difusa
-    luz.difusa[ 0 ] = 0.8;
-    luz.difusa[ 1 ] = 0.8;
-    luz.difusa[ 2 ] = 0.8;
-    luz.difusa[ 3 ] = 1.0;
+    luz.difusa[ 0 ] = 0.5;
+    luz.difusa[ 1 ] = 0.5;
+    luz.difusa[ 2 ] = 0.5;
+    luz.difusa[ 3 ] = 0.5;
 
     // cor e intensidade da luz especular
-    luz.especular[ 0 ] = 2.0;
-    luz.especular[ 1 ] = 2.0;
-    luz.especular[ 2 ] = 2.0;
+    luz.especular[ 0 ] = 1.0;
+    luz.especular[ 1 ] = 1.0;
+    luz.especular[ 2 ] = 1.0;
     luz.especular[ 3 ] = 1.0;
 
     // cor e intensidade da especularidade
-    luz.especularidade[ 0 ] = 0.8;
-    luz.especularidade[ 1 ] = 0.8;
-    luz.especularidade[ 2 ] = 0.8;
-    luz.especularidade[ 3 ] = 1.0;
+    luz.especularidade[ 0 ] = 0.5;
+    luz.especularidade[ 1 ] = 0.5;
+    luz.especularidade[ 2 ] = 0.5;
+    luz.especularidade[ 3 ] = 0.5;
 
     // ativa a possibilidade de transparência dos objetos - canal alfa
     glEnable( GL_BLEND );
@@ -468,6 +466,7 @@ void desenhacubo2(int x, int y, int z){ // pés
 
    glPushMatrix(); // face frontal
         glColor3ub(255,255,255);
+
         glBegin(GL_QUADS);
             glVertex3d(-x,-y,z);
             glVertex3d(x,-y,z);
@@ -513,6 +512,8 @@ void desenhacubo2(int x, int y, int z){ // pés
 
     glPushMatrix(); // face superior
         glColor3ub(255,255,255);
+
+        glRotated(180,1,0,0);
         glBegin(GL_QUADS);
             glVertex3d(-x,y,z);
             glVertex3d(x,y,z);
