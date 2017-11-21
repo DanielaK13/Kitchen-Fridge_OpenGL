@@ -4,7 +4,8 @@ This is a minibar using OpenGL.
 
 
 ### Screenshots
-(arte/Capturar.png)
 
-(arte/Capturar2.png)
+![Alt text](arte/Capturar.png?raw=true "Imagem 1")
+
+![Alt text](arte/Capturar2.png?raw=true "Imagem 2")
 
