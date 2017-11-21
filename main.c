@@ -231,7 +231,7 @@ void Texturizacao(){
 
    texture_id[ 13 ] = TEXTURA14; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[13] );//armazena na posição 0 do vetor
-   LoadBMP ( "fundo2.bmp" ); // lê a textura
+   LoadBMP ( "fundo6.bmp" ); // lê a textura
 
    texture_id[ 14 ] = TEXTURA15; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[14] );//armazena na posição 0 do vetor
@@ -259,7 +259,7 @@ void Texturizacao(){
 
     texture_id[ 20 ] = TEXTURA21; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[20] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaFundo.bmp" ); // lê a textura
+   LoadBMP ( "fundo4.bmp" ); // lê a textura
 
    glTexGeni( GL_S , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
    glTexGeni( GL_T , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
