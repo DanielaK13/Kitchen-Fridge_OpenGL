@@ -1688,16 +1688,20 @@ void Desenha(void){
         glPushMatrix(); //fundo
 
         glTranslatef( 0 , 0 , 0 );
+
+        if(visual_cozinha==false){
         glTranslatef( transf[ CENA ].dx , transf[ CENA ].dy , transf[ CENA ].dz );
         glRotatef( transf[CENA].angx, 1,0,0);
         glRotatef( transf[CENA].angy, 0,1,0);
         glRotatef( transf[CENA].angz, 0,0,1);
 
+        }
         glDisable(GL_TEXTURE_2D);
         glEnable(GL_TEXTURE_2D);
         glBindTexture ( GL_TEXTURE_2D, TEXTURA1 );
 
         glPushMatrix(); //CUBO FRONTAL
+
             glTranslatef(0,0,50);
             glTranslatef(50, 0, 0);
             glRotatef(180,0,1,0);
@@ -1848,6 +1852,8 @@ void Desenha(void){
 
     glPopMatrix(); //fecha cena
     glPopMatrix();
+
+
     glPopMatrix();
 
     glDisable( GL_TEXTURE_GEN_S );
