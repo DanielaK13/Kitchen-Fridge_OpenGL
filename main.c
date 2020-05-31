@@ -4,9 +4,7 @@
 
                       FRIGOBAR
 
-            CHRYSTIAN MUNZ,
             DANIELA KUINCHTNER, 152064
-            GABRIEL CONSALTER, 152071
             CIÊNCIA DA COMPUTAÇÃO - UPF
             PROF. EVANDRO VIAPIANA
 ********************************************************
@@ -179,87 +177,87 @@ void Texturizacao(){
 
    texture_id[ 0 ] = TEXTURA1; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[0] );//armazena na posição 0 do vetor
-   LoadBMP ( "textPorta2.bmp" ); // lê a textura
+   LoadBMP ( "textures/textPorta2.bmp" ); // lê a textura
 
    texture_id[ 1 ] = TEXTURA2; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[1] );//armazena na posição 0 do vetor
-   LoadBMP ( "laranja.bmp" ); // lê a textura
+   LoadBMP ( "textures/laranja.bmp" ); // lê a textura
 
    texture_id[ 2 ] = TEXTURA3; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[2] );//armazena na posição 0 do vetor
-   LoadBMP ( "maca.bmp" ); // lê a textura
+   LoadBMP ( "textures/maca.bmp" ); // lê a textura
 
    texture_id[ 3 ] = TEXTURA4; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[3] );//armazena na posição 0 do vetor
-   LoadBMP ( "cocacola.bmp" ); // lê a textura
+   LoadBMP ( "textures/cocacola.bmp" ); // lê a textura
 
    texture_id[ 4 ] = TEXTURA5; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[4] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinha.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinha.bmp" ); // lê a textura
 
    texture_id[ 5 ] = TEXTURA6; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[5] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaBalcaoAmarelo.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaBalcaoAmarelo.bmp" ); // lê a textura
 
    texture_id[ 6 ] = TEXTURA7; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[6] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaBalcaoAmareloTras.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaBalcaoAmareloTras.bmp" ); // lê a textura
 
    texture_id[ 7 ] = TEXTURA8; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[7] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaBalcaoCima.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaBalcaoCima.bmp" ); // lê a textura
 
    texture_id[ 8 ] = TEXTURA9; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[8] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaBalcaoCimaTras.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaBalcaoCimaTras.bmp" ); // lê a textura
 
    texture_id[ 9 ] = TEXTURA10; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[9] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaBalcaoVerde.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaBalcaoVerde.bmp" ); // lê a textura
 
    texture_id[ 10 ] = TEXTURA11; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[10] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaBalcaoVerdeTras.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaBalcaoVerdeTras.bmp" ); // lê a textura
 
    texture_id[ 11 ] = TEXTURA12; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[11] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaFogao.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaFogao.bmp" ); // lê a textura
 
    texture_id[ 12 ] = TEXTURA13; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[12] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaFogaoTras.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaFogaoTras.bmp" ); // lê a textura
 
    texture_id[ 13 ] = TEXTURA14; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[13] );//armazena na posição 0 do vetor
-   LoadBMP ( "fundo6.bmp" ); // lê a textura
+   LoadBMP ( "textures/fundo6.bmp" ); // lê a textura
 
    texture_id[ 14 ] = TEXTURA15; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[14] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaPrateleira.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaPrateleira.bmp" ); // lê a textura
 
    texture_id[ 15 ] = TEXTURA16; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[15] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaPrateleiraLado.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaPrateleiraLado.bmp" ); // lê a textura
 
    texture_id[ 16 ] = TEXTURA17; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[16] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaPrateleiraTras.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaPrateleiraTras.bmp" ); // lê a textura
 
    texture_id[ 17 ] = TEXTURA18; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[17] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaSugador.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaSugador.bmp" ); // lê a textura
 
    texture_id[ 18 ] = TEXTURA19; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[18] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaSuporteBaixo.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaSuporteBaixo.bmp" ); // lê a textura
 
    texture_id[ 19 ] = TEXTURA20; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[19] );//armazena na posição 0 do vetor
-   LoadBMP ( "cozinhaSuporteCima.bmp" ); // lê a textura
+   LoadBMP ( "textures/cozinhaSuporteCima.bmp" ); // lê a textura
 
     texture_id[ 20 ] = TEXTURA21; // define um numero (identificacao) para a textura
    glBindTexture ( GL_TEXTURE_2D, texture_id[20] );//armazena na posição 0 do vetor
-   LoadBMP ( "fundo4.bmp" ); // lê a textura
+   LoadBMP ( "textures/fundo4.bmp" ); // lê a textura
 
    glTexGeni( GL_S , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
    glTexGeni( GL_T , GL_TEXTURE_GEN_MODE , GL_SPHERE_MAP );
@@ -2173,32 +2171,34 @@ int main( int argc , char *argv[] ){
 
    // mostra na console um help sobre as teclas que o programa usa e o que cada uma faz
 
-   printf("\n----------------------COMANDOS BÁSICOS-----------------------");
-   printf("\nI i => Inicialização");
-   printf("\nV v => Visualizar cena");
-   printf("\nR r => seleciona transformação ROTAÇÃO");
-   printf("\nT t => seleciona transformação TRANSLAÇÃO");
-   printf("\nX x => seleciona eixo X");
-   printf("\nY y => seleciona eixo Y");
-   printf("\nZ z => seleciona eixo Z");
-   printf("\nO o => abre a porta");
-   printf("\nC c => fecha a porta");
-   printf("\n+ - => direção da transformação");
-   printf("\n\n----------------------OUTROS COMANDOS-----------------------");
-   printf("\nG g => rotaciona a câmera");
-   printf("\nD d => muda a posição da câmera no eixo X");
-   printf("\nH h => muda a posição da câmera no eixo Y");
-   printf("\nP p => muda a posição da câmera no eixo Z");
-   printf("\nE e => muda o alvo x");
-   printf("\nB b => muda o alvo y");
-   printf("\nF f => muda o alvo z");
-   printf("\nA a => muda o ângulo de abertura da lente");
-   printf("\nBotão esquerdo mouse => zoom +");
-   printf("\nBotão direito mouse => zoom -");
-   printf("\nESC => sai do programa");
-   printf("\n\n--------------------------OBJETOS---------------------------");
-   printf("\n0 : GELADEIRA");
-   printf("\n\n--------------------------JANELA----------------------------");
+
+   printf("\n----------------------BASIC CONTROLS----------------------");
+   printf("\nI i => initialization");
+   printf("\nV v => visualize kitchen scene");
+   printf("\nR r => select transformation ROTATION");
+   printf("\nT t => select transformation TRANSLATION");
+   printf("\nX x => select X axis");
+   printf("\nY y => select Y axis");
+   printf("\nZ z => select Z axis");
+   printf("\nO o => open door");
+   printf("\nC c => close door");
+   printf("\n+ - => transformation direction");
+
+
+
+   printf("\n\n--------------------OTHER COMMANDS-----------------------");
+   printf("\nG g => rotate camera");
+   printf("\nD d => changes position of the camera on X axis");
+   printf("\nH h => changes position of the camera on Y axis");
+   printf("\nP p => changes position of the camera on Z axis");
+   printf("\nE e => change target x");
+   printf("\nB b => change target y");
+   printf("\nF f => change target z");
+   printf("\nA a => changes the lens opening angle");
+   printf("\nLeft mouse button => zoom +");
+   printf("\nRight mouse button => zoom -");
+   printf("\nESC => exit");
+   printf("\n\n--------------------------WINDOW----------------------------");
 
    // função simples que inicializa os parãmetros da câmera e da projeção a ser utilizada
    Inicializa();

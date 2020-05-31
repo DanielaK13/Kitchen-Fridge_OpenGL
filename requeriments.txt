@@ -1,0 +1,23 @@
+==> Install CodeBlocks
+
+==> Considering CodeBlocks is installed in C:\Program Files (x86)\CodeBlocks\
+
+	copy glut_codeblocks/glut.def    to C:\Program Files (x86)\CodeBlocks\mingw\lib
+
+	copy glut_codeblocks/glut.h      to C:\Program Files (x86)\CodeBlocks\mingw\include\gl
+
+	copy glut_codeblocks/glut32.def  to C:\Program Files (x86)\CodeBlocks\mingw\lib
+
+	copy glut_codeblocks/glut32.lib  to C:\Program Files (x86)\CodeBlocks\mingw\lib 
+
+	copy glut_codeblocks/libglut.a   to C:\Program Files (x86)\CodeBlocks\mingw\lib
+
+	copy glut_codeblocks/glut32.dll  to c:\windows\system32
+
+	copy glut_codeblocks/glut32.dll  to C:\Windows\SysWOW64 <== 64 BITS WINDOWS
+
+==> Then, copy glut.def, glut.h, glut32.def, glut32.lib, libglut.a, glut32.dll and install_glut_codeblocks to DESKTOP.
+
+==> Finally, execute install_glut_codeblocks.
+
+==> Now, you can delete these copies in Desktop.
