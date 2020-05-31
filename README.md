@@ -2,8 +2,8 @@
 
 This is a mini fridge in a kitchen using OpenGL in C:
 
-<img src="textures/fridge.PNG" width="500">
-<img src="textures/kitchen.PNG" width="500">
+<img src="textures/fridge.PNG" width="300">
+<img src="textures/kitchen.PNG" width="600">
 
 ## Getting started
 
