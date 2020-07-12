@@ -1,6 +1,6 @@
 # Kitchen/Fridge
 
-This is a mini fridge in a kitchen using OpenGL in C:
+This is a mini fridge in a kitchen using OpenGL:
 
 <img src="textures/fridge.PNG" width="300">
 <img src="textures/kitchen.PNG" width="600">
